@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>House of Rakhi — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="supabase-config.js"></script>
+<style>
+  :root {
+    --maroon-deep: #4A0C18;
+    --maroon: #7A1029;
+    --maroon-soft: #93233F;
+    --gold: #C9971F;
+    --gold-light: #E8C468;
+    --cream: #FFF6E9;
+    --cream-warm: #FBEAD1;
+    --green: #194A3A;
+    --ink: #2B1210;
+    --ink-soft: #5B3A34;
+    --white: #FFFFFF;
+    --danger: #B3261E;
+    --radius: 12px;
+    --shadow: 0 8px 24px rgba(74,12,24,0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+  }
+  header.admin-bar {
+    background: var(--maroon-deep);
+    color: var(--white);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header.admin-bar h1 { font-size: 1.1rem; margin: 0; }
+  header.admin-bar .who { font-size: 0.85rem; opacity: 0.85; }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+  }
+  .btn-primary { background: var(--maroon); color: var(--white); }
+  .btn-primary:hover { background: var(--maroon-soft); }
+  .btn-gold { background: var(--gold); color: var(--maroon-deep); font-weight: 600; }
+  .btn-danger { background: var(--danger); color: var(--white); }
+  .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.4); }
+  .btn-small { padding: 4px 10px; font-size: 0.8rem; }
+
+  #loginScreen {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .login-card {
+    background: var(--white);
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 360px;
+  }
+  .login-card h2 { margin-top: 0; color: var(--maroon-deep); }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 0.85rem; margin-bottom: 4px; color: var(--ink-soft); }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font: inherit;
+  }
+  .field textarea { resize: vertical; min-height: 60px; }
+  .error-msg { color: var(--danger); font-size: 0.85rem; margin-top: 8px; min-height: 1.1em; }
+
+  main.admin-main { padding: 24px; max-width: 1200px; margin: 0 auto; display: none; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid var(--cream-warm); }
+  .tab-btn {
+    background: none; color: var(--ink-soft); padding: 10px 16px;
+    border-radius: 8px 8px 0 0; font-weight: 600;
+  }
+  .tab-btn.active { background: var(--maroon); color: var(--white); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
+  .toolbar input[type="search"] { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; min-width: 220px; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--cream-warm); font-size: 0.9rem; vertical-align: top; }
+  th { background: var(--cream-warm); color: var(--maroon-deep); }
+  tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+  .pill.in-stock { background: #E4F3E7; color: #1E6B34; }
+  .pill.limited { background: #FDF0DA; color: #8A5A00; }
+  .pill.out { background: #FBE3E1; color: var(--danger); }
+  .thumb { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; display: block; }
+  .flag-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .flag-tags span { background: var(--cream-warm); color: var(--maroon-deep); font-size: 0.7rem; padding: 1px 6px; border-radius: 999px; }
+  .row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(43,18,16,0.55);
+    display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: var(--radius); padding: 24px;
+    max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto;
+  }
+  .modal h3 { margin-top: 0; color: var(--maroon-deep); }
+  .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-grid .full { grid-column: 1 / -1; }
+  .checkbox-row { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+  .checkbox-row input { width: auto; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+  .status-msg { font-size: 0.85rem; margin-top: 10px; }
+  .status-msg.ok { color: #1E6B34; }
+  .status-msg.err { color: var(--danger); }
+
+  .empty-note { padding: 20px; text-align: center; color: var(--ink-soft); }
+  .loading-note { padding: 20px; text-align: center; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<header class="admin-bar">
+  <h1>House of Rakhi — Admin Panel</h1>
+  <div>
+    <span class="who" id="whoLabel"></span>
+    <button class="btn-ghost" id="logoutBtn" style="display:none; margin-left:12px;">Log out</button>
+  </div>
+</header>
+
+<!-- LOGIN -->
+<section id="loginScreen">
+  <div class="login-card">
+    <h2>Admin Login</h2>
+    <form id="loginForm" autocomplete="off">
+      <input type="text" name="username" autocomplete="username" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;border:0;" aria-hidden="true" tabindex="-1" />
+      <input type="password" name="current-password" autocomplete="current-password" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;border:0;" aria-hidden="true" tabindex="-1" />
+      <div class="field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" name="loginEmail" autocomplete="off" required />
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" name="loginPassword" autocomplete="new-password" required />
+      </div>
+      <button type="submit" class="btn-primary" style="width:100%;">Log In</button>
+      <p class="error-msg" id="loginError"></p>
+    </form>
+  </div>
+</section>
+
+<!-- MAIN ADMIN AREA -->
+<main class="admin-main" id="adminMain">
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="products">Products</button>
+    <button class="tab-btn" data-tab="orders">Orders</button>
+  </div>
+
+  <!-- PRODUCTS TAB -->
+  <section class="tab-panel active" id="tab-products">
+    <div class="toolbar">
+      <input type="search" id="productSearch" placeholder="Search products…" />
+      <button class="btn-gold" id="addProductBtn">+ Add Product</button>
+    </div>
+    <div id="productsTableWrap">
+      <p class="loading-note">Loading products…</p>
+    </div>
+  </section>
+
+  <!-- ORDERS TAB -->
+  <section class="tab-panel" id="tab-orders">
+    <div class="toolbar">
+      <button class="btn-primary btn-small" id="refreshOrdersBtn">Refresh</button>
+    </div>
+    <div id="ordersTableWrap">
+      <p class="loading-note">Loading orders…</p>
+    </div>
+  </section>
+</main>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-backdrop" id="productModalBackdrop">
+  <div class="modal">
+    <h3 id="productModalTitle">Add Product</h3>
+    <form id="productForm">
+      <input type="hidden" id="pf_id" />
+      <div class="modal-grid">
+        <div class="field full">
+          <label>Name (English)</label>
+          <input type="text" id="pf_name" required />
+        </div>
+        <div class="field full">
+          <label>Name (Telugu)</label>
+          <input type="text" id="pf_name_te" />
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select id="pf_category" required>
+            <option value="God Rakhi">God Rakhi</option>
+            <option value="Designer Rakhi">Designer Rakhi</option>
+            <option value="Kids Rakhi">Kids Rakhi</option>
+            <option value="Premium Rakhi">Premium Rakhi</option>
+            <option value="Handmade Rakhi">Handmade Rakhi</option>
+            <option value="Bracelet Rakhi">Bracelet Rakhi</option>
+            <option value="Silver Rakhi">Silver Rakhi</option>
+            <option value="Stone Rakhi">Stone Rakhi</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Subcategory</label>
+          <input type="text" id="pf_subcategory" />
+        </div>
+        <div class="field full">
+          <label>Description (English)</label>
+          <textarea id="pf_description"></textarea>
+        </div>
+        <div class="field full">
+          <label>Description (Telugu)</label>
+          <textarea id="pf_description_te"></textarea>
+        </div>
+        <div class="field">
+          <label>Price (₹)</label>
+          <input type="number" id="pf_price" min="0" step="0.01" required />
+        </div>
+        <div class="field">
+          <label>Stock Quantity</label>
+          <input type="number" id="pf_stock" min="0" step="1" required />
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select id="pf_status">
+            <option value="In Stock">In Stock</option>
+            <option value="Limited Stock">Limited Stock</option>
+            <option value="Out of Stock">Out of Stock</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Discount %</label>
+          <input type="number" id="pf_discount" min="0" max="100" step="1" value="0" />
+        </div>
+        <div class="field full">
+          <label>Product Photo (optional)</label>
+          <input type="file" id="pf_image" accept="image/*" />
+          <p class="status-msg" id="pf_image_note"></p>
+        </div>
+        <div class="field full">
+          <label>Flags</label>
+          <div class="checkbox-row"><input type="checkbox" id="pf_premium" /> <label for="pf_premium">Premium</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_bestseller" /> <label for="pf_bestseller">Best Selling</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_new_arrival" /> <label for="pf_new_arrival">New Arrival</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_featured" /> <label for="pf_featured">Featured</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_handmade" /> <label for="pf_handmade">Handmade</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_designer" /> <label for="pf_designer">Designer</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_god_rakhi" /> <label for="pf_god_rakhi">God Rakhi</label></div>
+          <div class="checkbox-row"><input type="checkbox" id="pf_wholesale" /> <label for="pf_wholesale">Wholesale</label></div>
+        </div>
+      </div>
+      <p class="status-msg" id="productFormStatus"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" style="color:var(--ink);border:1px solid #ccc;" id="cancelProductBtn">Cancel</button>
+        <button type="submit" class="btn-primary">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

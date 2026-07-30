@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== SEO Meta Tags ===== -->
+  <title>House of Rakhi by Shri Rajarajeshwara Rakhi Store | Best Rakhi Shop in Vemulawada | శ్రీ రాజరాజేశ్వర రాఖీ స్టోర్</title>
+  <meta name="description" content="House of Rakhi by Shri Rajarajeshwara Rakhi Store in Vemulawada offers premium rakhis, wholesale & retail options, and 35+ years of trust since 1990. Visit us in Old Market near Hanuman Temple." />
+  <meta name="keywords" content="House of Rakhi by Shri Rajarajeshwara Rakhi Store, Rakhi Store Vemulawada, Wholesale & Retail Rakhi, Raksha Bandhan Vemulawada, రాఖీ దుకాణం వేములవాడ" />
+  <meta name="author" content="House of Rakhi by Shri Rajarajeshwara Rakhi Store" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph tags for social sharing -->
+  <meta property="og:title" content="House of Rakhi by Shri Rajarajeshwara Rakhi Store | Vemulawada" />
+  <meta property="og:description" content="Premium rakhi collection in Old Market, Near Hanuman Temple, Vemulawada, Telangana. Since 1990, 35+ years of trust, wholesale & retail." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="logo-placeholder.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="House of Rakhi by Shri Rajarajeshwara Rakhi Store | Vemulawada" />
+  <meta property="twitter:description" content="Premium rakhi collection in Old Market, Near Hanuman Temple, Vemulawada, Telangana. Since 1990, 35+ years of trust, wholesale & retail." />
+  <meta property="twitter:image" content="logo-placeholder.png" />
+
+  <link rel="icon" type="image/png" href="logo.png.jpeg" />
+
+  <!-- Google Fonts: Marcellus (English display), Poppins (English body), Ramaraja (Telugu display), Anek Telugu (Telugu body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Poppins:wght@400;500;600;700&family=Ramaraja&family=Anek+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Supabase: connects the product catalog to the live database -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <style>
+    .trust-section {
+      padding: 2rem 0 4rem;
+    }
+
+    .trust-card {
+      background: linear-gradient(135deg, rgba(255, 246, 233, 0.95) 0%, rgba(251, 234, 209, 0.95) 100%);
+      border: 1px solid rgba(74, 12, 24, 0.1);
+      border-radius: 22px;
+      padding: 2rem;
+      box-shadow: 0 14px 36px rgba(74, 12, 24, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trust-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(201, 151, 31, 0.12) 50%, transparent 100%);
+      transform: translateX(-100%);
+      animation: trustShine 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes trustShine {
+      100% { transform: translateX(100%); }
+    }
+
+    .trust-title {
+      font-family: var(--font-display-en);
+      font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+      color: var(--maroon-deep);
+      margin-bottom: 0.6rem;
+      text-align: center;
+    }
+
+    .trust-subtitle {
+      text-align: center;
+      color: var(--ink-soft);
+      margin-bottom: 1.6rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .trust-item {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(74, 12, 24, 0.08);
+      border-radius: 16px;
+      padding: 1rem;
+      text-align: center;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .trust-item strong {
+      color: var(--maroon-deep);
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .trust-item span {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .trust-cities {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      justify-content: center;
+    }
+
+    .trust-city {
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      background: rgba(74, 12, 24, 0.08);
+      color: var(--maroon-soft);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid rgba(74, 12, 24, 0.1);
+    }
+
+    @media (max-width: 900px) {
+      .trust-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .countdown-section {
+      padding: 4rem 0 2rem;
+    }
+
+    .countdown-card {
+      background: linear-gradient(135deg, rgba(74, 12, 24, 0.96) 0%, rgba(122, 16, 41, 0.96) 100%);
+      color: var(--cream);
+      border-radius: 22px;
+      padding: 2rem;
+      box-shadow: 0 18px 40px rgba(74, 12, 24, 0.18);
+      border: 1px solid rgba(233, 196, 104, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(232, 196, 104, 0.14) 50%, transparent 100%);
+      transform: translateX(-100%);
+      animation: countdownShine 5s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes countdownShine {
+      100% { transform: translateX(100%); }
+    }
+
+    .countdown-title {
+      font-family: var(--font-display-en);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .countdown-subtitle {
+      text-align: center;
+      color: rgba(255, 246, 233, 0.9);
+      margin-bottom: 1.8rem;
+      font-size: 0.98rem;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .countdown-box {
+      background: rgba(255, 246, 233, 0.1);
+      border: 1px solid rgba(232, 196, 104, 0.24);
+      border-radius: 16px;
+      padding: 1rem 0.75rem;
+      text-align: center;
+      backdrop-filter: blur(6px);
+    }
+
+    .countdown-value {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      font-family: var(--font-display-en);
+      margin-bottom: 0.2rem;
+    }
+
+    .countdown-label {
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.92;
+    }
+
+    @media (max-width: 700px) {
+      .countdown-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .hero-rotator {
+      margin-top: 1rem;
+      min-height: 2.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display-en);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 10px rgba(74, 12, 24, 0.12);
+    }
+
+    .hero-rotator .rotating-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
+    }
+
+    .hero-rotator .rotating-word.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .lang-switcher {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      margin-left: auto;
+      margin-right: 0.75rem;
+    }
+
+    .lang-toggle {
+      border: 1px solid rgba(74, 12, 24, 0.14);
+      background: rgba(255, 246, 233, 0.9);
+      color: var(--maroon-soft);
+      padding: 0.42rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .lang-toggle:hover,
+    .lang-switcher.open .lang-toggle {
+      background: linear-gradient(135deg, var(--gold) 0%, #B07E17 100%);
+      color: var(--maroon-deep);
+      border-color: rgba(201, 151, 31, 0.32);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 0.35rem);
+      right: 0;
+      min-width: 140px;
+      display: none;
+      flex-direction: column;
+      padding: 0.35rem;
+      gap: 0.25rem;
+      border: 1px solid rgba(74, 12, 24, 0.14);
+      border-radius: 14px;
+      background: rgba(255, 246, 233, 0.98);
+      box-shadow: 0 12px 32px rgba(74, 12, 24, 0.12);
+      backdrop-filter: blur(10px);
+      z-index: 30;
+    }
+
+    .lang-switcher.open .lang-menu {
+      display: flex;
+    }
+
+    .lang-option {
+      border: none;
+      background: transparent;
+      color: var(--maroon-soft);
+      padding: 0.5rem 0.6rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .lang-option:hover,
+    .lang-option.active {
+      background: rgba(74, 12, 24, 0.08);
+      color: var(--maroon-deep);
+    }
+
+    .cart-link {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--maroon-deep);
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0 0.2rem;
+      box-shadow: 0 6px 16px rgba(74, 12, 24, 0.16);
+    }
+
+    .lang-en,
+    .lang-te,
+    .lang-te-block {
+      display: none;
+    }
+
+    body[data-lang="en"] .lang-en {
+      display: inline;
+    }
+
+    body[data-lang="en"] .lang-te,
+    body[data-lang="en"] .lang-te-block {
+      display: none !important;
+    }
+
+    body[data-lang="en"] .brand-en {
+      display: block;
+    }
+
+    body[data-lang="en"] .brand-te {
+      display: none !important;
+    }
+
+    body[data-lang="te"] .lang-te,
+    body[data-lang="te"] .lang-te-block {
+      display: block;
+    }
+
+    body[data-lang="te"] .lang-te {
+      display: inline-block;
+    }
+
+    body[data-lang="te"] .lang-en {
+      display: none !important;
+    }
+
+    body[data-lang="te"] .brand-en {
+      display: none !important;
+    }
+
+    body[data-lang="te"] .brand-te {
+      display: block;
+    }
+
+    @media (max-width: 860px) {
+      .lang-switcher {
+        margin: 0 0 0.75rem 0;
+      }
+    }
+  </style>
+</head>
+<body data-lang="en">
+
+  <!-- =========================================================
+       HEADER / NAVIGATION
+  ========================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrapper">
+
+      <a href="#home" class="brand">
+        <img src="logo-placeholder.png" alt="House of Rakhi by Shri Rajarajeshwara Rakhi Store logo" class="brand-logo" decoding="async" />
+        <span class="brand-text">
+          <span class="brand-en">House of Rakhi by Shri Rajarajeshwara Rakhi Store</span>
+          <span class="brand-te">హౌస్ ఆఫ్ రాఖీ బై శ్రీ రాజరాజేశ్వర రఖీ స్టోర్</span>
+          <span class="brand-en">Since 1990 • 35+ Years of Trust • Wholesale & Retail</span>
+          <span class="brand-te">1990 నుండి • 35+ సంవత్సరాల నమ్మకం • wholesales & retail</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active-link">
+          <span class="lang-en">Home</span>
+          <span class="lang-te">హోమ్</span>
+        </a>
+        <a href="#collection" class="nav-link">
+          <span class="lang-en">Collection</span>
+          <span class="lang-te">సేకరణ</span>
+        </a>
+        <a href="#about" class="nav-link">
+          <span class="lang-en">About Us</span>
+          <span class="lang-te">మా గురించి</span>
+        </a>
+        <a href="#why-us" class="nav-link">
+          <span class="lang-en">Why Us</span>
+          <span class="lang-te">ఎందుకు మేము</span>
+        </a>
+        <a href="#timings" class="nav-link">
+          <span class="lang-en">Timings</span>
+          <span class="lang-te">సమయాలు</span>
+        </a>
+        <a href="#contact" class="nav-link">
+          <span class="lang-en">Contact</span>
+          <span class="lang-te">సంప్రదించండి</span>
+        </a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="tel:+910000000000" class="icon-btn" aria-label="Call Store">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"/></svg>
+        </a>
+        <a href="https://wa.me/917993687372" target="_blank" rel="noopener" class="icon-btn whatsapp" aria-label="WhatsApp Us">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3zM12 21.4h-.1c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.6 9.6 0 0 1-1.5-5.1C2.1 6.5 6.5 2.1 12 2.1c2.6 0 5.1 1 6.9 2.9a9.6 9.6 0 0 1 2.9 6.9c0 5.5-4.5 9.5-9.8 9.5zm5.4-7.2c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+        </a>
+        <a href="#cart" class="icon-btn cart-link" aria-label="View cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M3 4h2l2.1 10.2a1 1 0 0 0 1 .8h8.4a1 1 0 0 0 1-.8L16.4 8H7.2"/><circle cx="10" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>
+          <span class="cart-badge" id="cartCount">0</span>
+        </a>
+      </div>
+
+      <div class="lang-switcher" role="group" aria-label="Language switcher">
+        <button class="lang-toggle" type="button" aria-haspopup="menu" aria-expanded="false">
+          <span class="lang-current">English</span>
+          <span aria-hidden="true">▾</span>
+        </button>
+        <div class="lang-menu" role="menu">
+          <button class="lang-option active" type="button" data-lang="en" role="menuitem">English</button>
+          <button class="lang-option" type="button" data-lang="te" role="menuitem">తెలుగు</button>
+        </div>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       HERO SECTION
+  ========================================================= -->
+  <section class="hero" id="home">
+    <!-- decorative toran (hanging garland) signature element -->
+    <div class="toran" aria-hidden="true"></div>
+
+    <div class="hero-pattern" aria-hidden="true"></div>
+
+    <div class="container hero-content">
+      <p class="eyebrow lang-en" data-aos>Since 1990 &middot; 35+ Years of Trust &middot; Wholesale & Retail</p>
+      <p class="eyebrow lang-te-block" data-aos>1990 నుండి &middot; 35+ సంవత్సరాల నమ్మకం &middot; wholesales & retail</p>
+      <h1 data-aos>
+        <span class="hero-en lang-en">House of Rakhi by Shri Rajarajeshwara Rakhi Store</span>
+        <span class="hero-te lang-te">హౌస్ ఆఫ్ రాఖీ బై శ్రీ రాజరాజేశ్వర రాఖీ స్టోర్</span>
+      </h1>
+      <p class="hero-sub lang-en" data-aos>
+        Celebrate the bond of Raksha Bandhan with our finest collection of rakhis and trusted wholesale & retail service.<br />
+        <strong>Since 1990</strong> &middot; <strong>35+ Years of Trust</strong> &middot; <strong>Wholesale & Retail</strong>
+      </p>
+      <p class="hero-sub lang-te-block" data-aos>
+        రక్షా బంధన్ అనుబంధాన్ని మా అత్యుత్తమ రాఖీ సేకరణతో, నమ్మకమైన wholesales & retail సేవలతో జరుపుకోండి.<br />
+        <strong>1990 నుండి</strong> &middot; <strong>35+ సంవత్సరాల నమ్మకం</strong> &middot; <strong>Wholesale & Retail</strong>
+      </p>
+
+      <div class="hero-actions" data-aos>
+        <a href="#collection" class="btn btn-primary">
+          View Collection <span class="te">సేకరణ చూడండి</span>
+        </a>
+        <a href="https://wa.me/917993687372" target="_blank" rel="noopener" class="btn btn-whatsapp">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3zM12 21.4h-.1c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.6 9.6 0 0 1-1.5-5.1C2.1 6.5 6.5 2.1 12 2.1c2.6 0 5.1 1 6.9 2.9a9.6 9.6 0 0 1 2.9 6.9c0 5.5-4.5 9.5-9.8 9.5zm5.4-7.2c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+          WhatsApp Us
+        </a>
+      </div>
+
+      <div class="hero-rotator" aria-live="polite" data-aos>
+        <span class="rotating-word is-visible">Celebrating Every Bond</span>
+      </div>
+
+      <p class="hero-address lang-en" data-aos>
+        📍 Old Market, Near Hanuman Temple, Vemulawada, Telangana &nbsp;|&nbsp; 🕒 9:00 AM – 10:00 PM
+      </p>
+      <p class="hero-address lang-te-block" data-aos>
+        📍 వేములవాడలోని పాత మార్కెట్, హనుమాన్ దేవాలయ సమీపం, తెలంగాణ &nbsp;|&nbsp; 🕒 ఉదయం 9:00 – రాత్రి 10:00
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       RAKSHA BANDHAN COUNTDOWN
+  ========================================================= -->
+  <section class="countdown-section" id="countdown">
+    <div class="container">
+      <div class="countdown-card" data-aos>
+        <h2 class="countdown-title lang-en">Raksha Bandhan Countdown</h2>
+        <h2 class="countdown-title lang-te-block">రక్షా బంధన్ కౌంట్‌డౌన్</h2>
+        <p class="countdown-subtitle lang-en">Celebrate the festival with the finest rakhi collection, just around the corner.</p>
+        <p class="countdown-subtitle lang-te-block">స్పర్శించడానికి ఇంకా少 timeలో ఉండే అత్యుత్తమ రాఖీ సేకరణతో పండుగను జరుపుకోండి.</p>
+        <div class="countdown-grid">
+          <div class="countdown-box">
+            <div class="countdown-value" id="days">00</div>
+            <div class="countdown-label lang-en">Days</div>
+            <div class="countdown-label lang-te-block">దినాలు</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-value" id="hours">00</div>
+            <div class="countdown-label lang-en">Hours</div>
+            <div class="countdown-label lang-te-block">గంటలు</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-value" id="minutes">00</div>
+            <div class="countdown-label lang-en">Minutes</div>
+            <div class="countdown-label lang-te-block">నిమిషాలు</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-value" id="seconds">00</div>
+            <div class="countdown-label lang-en">Seconds</div>
+            <div class="countdown-label lang-te-block">క్షణాలు</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TRUST SECTION
+  ========================================================= -->
+  <section class="trust-section" id="trust">
+    <div class="container">
+      <div class="trust-card" data-aos>
+        <h2 class="trust-title lang-en">Why Customers Trust Us</h2>
+        <h2 class="trust-title lang-te-block">ఎందుకు కస్టమర్లు మమ్మల్ని విశ్వసిస్తారు</h2>
+        <p class="trust-subtitle lang-en">A legacy of premium craftsmanship, dependable sourcing, and customer-first service across India.</p>
+        <p class="trust-subtitle lang-te-block">భారతదేశం అంతటా ప్రీమియం కౌశలం, నమ్మదగిన సోర్స్ మరియు కస్టమర్-ఫస్ట్ సేవల వారసత్వం.</p>
+
+        <div class="trust-grid">
+          <div class="trust-item">
+            <strong class="lang-en">35+ Years Experience</strong>
+            <strong class="lang-te-block">35+ సంవత్సరాల అనుభవం</strong>
+            <span class="lang-en">A legacy shaped by generations of festive expertise.</span>
+            <span class="lang-te-block">పండుగ అనుభవంతో రూపొందించిన వారసత్వం.</span>
+          </div>
+          <div class="trust-item">
+            <strong class="lang-en">Trusted Since 1990</strong>
+            <strong class="lang-te-block">1990 నుండి నమ్మకమైనది</strong>
+            <span class="lang-en">Serving families with consistency and care for decades.</span>
+            <span class="lang-te-block">దశాబ్దాలుగా కుటుంబాలకు స్థిరంగా సేవలు అందిస్తోంది.</span>
+          </div>
+          <div class="trust-item">
+            <strong class="lang-en">Wholesale & Retail</strong>
+            <strong class="lang-te-block"> wholesales & retail</strong>
+            <span class="lang-en">Flexible solutions for bulk orders and individual shoppers.</span>
+            <span class="lang-te-block">బల్క్ ఆర్డర్లు మరియు వ్యక్తిగత కొనుగోలుదారులకు సరిపోయే సేవలు.</span>
+          </div>
+          <div class="trust-item">
+            <strong class="lang-en">Direct Sourcing</strong>
+            <strong class="lang-te-block">직్‌ సోర్స్</strong>
+            <span class="lang-en">Premium collections sourced directly from the best markets.</span>
+            <span class="lang-te-block">ఉత్తమ మార్కెట్ల నుండి నేరుగా పొందిన ప్రీమియం సేకరణలు.</span>
+          </div>
+        </div>
+
+        <div class="trust-cities">
+          <span class="trust-city">Kolkata</span>
+          <span class="trust-city">Mumbai</span>
+          <span class="trust-city">Delhi</span>
+          <span class="trust-city">Ahmedabad</span>
+          <span class="trust-city">Rajkot</span>
+        </div>
+
+        <div class="trust-grid" style="margin-top: 1rem;">
+          <div class="trust-item">
+            <strong class="lang-en">Premium Quality</strong>
+            <strong class="lang-te-block">ప్రీమియం నాణ్యత</strong>
+            <span class="lang-en">Carefully selected pieces with a refined finish.</span>
+            <span class="lang-te-block">జాగ్రత్తగా ఎంపిక చేసిన శోభన ఉన్న భాగాలు.</span>
+          </div>
+          <div class="trust-item">
+            <strong class="lang-en">Thousands of Happy Customers</strong>
+            <strong class="lang-te-block">వెయ్యకు పైగా హ్యాపీ కస్టమర్లు</strong>
+            <span class="lang-en">A trusted name for families across generations.</span>
+            <span class="lang-te-block">తర generations boyunca కుటుంబాలకు విశ్వాసనీయమైన పేరు.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       OUR RAKHI COLLECTION
+  ========================================================= -->
+  <section class="collection" id="collection">
+    <div class="container">
+      <p class="section-eyebrow lang-en" data-aos>Our Collection</p>
+      <p class="section-eyebrow lang-te-block" data-aos>మా సేకరణ</p>
+      <h2 class="section-title lang-en" data-aos>Rakhis For Every Bond</h2>
+      <h2 class="section-title lang-te-block" data-aos>ప్రతి అనుబంధానికి రాఖీలు</h2>
+      <p class="section-desc lang-en" data-aos>
+        From traditional threads to designer pieces, explore rakhis for brothers, sisters,
+        and little ones.
+      </p>
+      <p class="section-desc lang-te-block" data-aos>
+        సాంప్రదాయ దారాల నుండి డిజైనర్ రాఖీల వరకు — అన్నదమ్ముల, అక్కచెల్లెళ్ల మరియు పిల్లల కోసం.
+      </p>
+
+      <div class="collection-toolbar" data-aos>
+        <div class="search-shell">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.5 3.75a6.75 6.75 0 1 1 0 13.5 6.75 6.75 0 0 1 0-13.5Zm0 0 8.25 8.25" />
+          </svg>
+          <input
+            type="text"
+            id="collectionSearch"
+            class="search-input"
+            placeholder="Search by product name, category, subcategory, ID or description"
+            autocomplete="off"
+            aria-label="Search collection"
+          />
+        </div>
+        <p class="search-hint lang-en">Instant search • Premium collection</p>
+        <p class="search-hint lang-te-block">తక్షణ శోధన • ప్రీమియం సేకరణ</p>
+      </div>
+
+      <div class="filter-panel" data-aos>
+        <div class="filter-row">
+          <label class="filter-field">
+            <span class="lang-en">Category</span>
+            <span class="lang-te-block">వర్గం</span>
+            <select id="filterCategory" class="filter-select">
+              <option value="">All Categories</option>
+            </select>
+          </label>
+
+          <label class="filter-field">
+            <span class="lang-en">Price</span>
+            <span class="lang-te-block">ధర</span>
+            <select id="filterPrice" class="filter-select">
+              <option value="">All Prices</option>
+              <option value="under-100">Under ₹100</option>
+              <option value="100-300">₹100 – ₹300</option>
+              <option value="300-500">₹300 – ₹500</option>
+              <option value="500-plus">₹500+</option>
+            </select>
+          </label>
+
+          <label class="filter-field">
+            <span class="lang-en">Stock Status</span>
+            <span class="lang-te-block">స్టాక్ స్థితి</span>
+            <select id="filterStock" class="filter-select">
+              <option value="">All Stock</option>
+              <option value="in-stock">In Stock</option>
+              <option value="limited">Limited Stock</option>
+              <option value="out-of-stock">Out of Stock</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="filter-chip-row">
+          <button type="button" class="filter-chip" data-filter="newest">
+            <span class="lang-en">Newest</span>
+            <span class="lang-te-block">తాజా</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="best-selling">
+            <span class="lang-en">Best Selling</span>
+            <span class="lang-te-block">మంచి అమ్మకం</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="wholesale">
+            <span class="lang-en">Wholesale</span>
+            <span class="lang-te-block"> wholesales </span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="premium">
+            <span class="lang-en">Premium</span>
+            <span class="lang-te-block">ప్రీమియం</span>z
+          </button>
+          <button type="button" class="filter-chip" data-filter="handmade">
+            <span class="lang-en">Handmade</span>
+            <span class="lang-te-block">చేతితో చేసినది</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="kids-rakhi">
+            <span class="lang-en">Kids Rakhi</span>
+            <span class="lang-te-block">పిల్లల రఖీ</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="designer">
+            <span class="lang-en">Designer</span>
+            <span class="lang-te-block">డిజైనర్</span>
+          </button>
+          <button type="button" class="filter-chip" data-filter="god-rakhi">
+            <span class="lang-en">God Rakhi</span>
+            <span class="lang-te-block">దేవత రాఖీ</span>
+          </button>
+        </div>
+
+        <div class="filter-actions">
+          <button type="button" id="clearFilters" class="clear-filters">
+            <span class="lang-en">Clear Filters</span>
+            <span class="lang-te-block">ఫిల్టర్లు తీసివేయండి</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="collection-grid" id="categoryGrid"></div>
+    </div>
+  </section>
+
+  <section class="cart-section" id="cart">
+    <div class="container">
+      <p class="section-eyebrow lang-en" data-aos>Shopping Cart</p>
+      <p class="section-eyebrow lang-te-block" data-aos>షాపింగ్ కార్ట్</p>
+      <h2 class="section-title lang-en" data-aos>Your Selected Pieces</h2>
+      <h2 class="section-title lang-te-block" data-aos>మీ ఎంపిక చేసిన వస్తువులు</h2>
+
+      <div class="cart-shell" data-aos>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-summary">
+          <h3 class="lang-en">Order Summary</h3>
+          <h3 class="lang-te-block">ఆర్డర్ సారాంశం</h3>
+
+          <div class="summary-row">
+            <span class="lang-en">Subtotal</span>
+            <span class="lang-te-block">సబ్టోట్</span>
+            <strong id="subtotalAmount">₹0</strong>
+          </div>
+
+          <div class="summary-row">
+            <span class="lang-en">Delivery Charge</span>
+            <span class="lang-te-block">డెలివరీ ఛార్జ్</span>
+            <strong id="deliveryAmount">₹0</strong>
+          </div>
+
+          <div class="summary-row grand-total">
+            <span class="lang-en">Grand Total</span>
+            <span class="lang-te-block">మొత్తం</span>
+            <strong id="grandTotalAmount">₹0</strong>
+          </div>
+
+          <label class="delivery-select-label">
+            <span class="lang-en">Delivery Zone</span>
+            <span class="lang-te-block">డెలివరీ జోన్</span>
+            <select id="deliveryArea" class="filter-select">
+              <option value="local">Local delivery</option>
+              <option value="nearby">Nearby towns</option>
+              <option value="outstation">Outstation</option>
+            </select>
+          </label>
+
+          <label class="delivery-select-label">
+            <span class="lang-en">Area or Pincode</span>
+            <span class="lang-te-block">ప్రాంతం లేదా పిన్‌కోడ్</span>
+            <input type="text" id="customerDeliveryLocation" class="filter-select" placeholder="e.g. Vemulawada or 505302" />
+          </label>
+
+          <form id="whatsappCheckoutForm" class="checkout-form">
+            <label class="checkout-field">
+              <span class="lang-en">Customer Name</span>
+              <span class="lang-te-block">కస్టమర్ పేరు</span>
+              <input type="text" id="customerName" required placeholder="Enter your name" />
+            </label>
+
+            <label class="checkout-field">
+              <span class="lang-en">Phone</span>
+              <span class="lang-te-block">ఫోన్</span>
+              <input type="tel" id="customerPhone" required placeholder="Enter your phone number" />
+            </label>
+
+            <label class="checkout-field">
+              <span class="lang-en">Address</span>
+              <span class="lang-te-block">చిరునామా</span>
+              <textarea id="customerAddress" rows="3" required placeholder="Enter your delivery address"></textarea>
+            </label>
+
+            <button type="submit" class="btn btn-primary cart-checkout">
+              <span class="lang-en">Checkout on WhatsApp</span>
+              <span class="lang-te-block">వాట్సాప్‌లో చెక్అవుట్</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- decorative divider -->
+  <!-- =========================================================
+       ABOUT US
+  ========================================================= -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-image" data-aos>
+        <img src="logo-placeholder.png" alt="House of Rakhi by Shri Rajarajeshwara Rakhi Store storefront in Vemulawada" loading="lazy" decoding="async" />
+      </div>
+      <div class="about-text" data-aos>
+        <p class="section-eyebrow lang-en">About Us</p>
+        <p class="section-eyebrow lang-te-block">మా గురించి</p>
+        <h2 class="section-title lang-en">A Store Rooted In Tradition</h2>
+        <h2 class="section-title lang-te-block">సంప్రదాయంలో వేళ్ళూనుకున్న దుకాణం</h2>
+        <p class="lang-en">
+          Located in the Old Market near the sacred Hanuman Temple in Vemulawada,
+          House of Rakhi by Shri Rajarajeshwara Rakhi Store has been a trusted name for festive shopping since 1990.
+          We take pride in offering a wide variety of rakhis — from simple traditional
+          threads to intricately designed pieces — for every kind of sibling bond.
+        </p>
+        <p class="lang-te-block">
+          వేములవాడలోని పవిత్ర హనుమాన్ దేవాలయం సమీపంలోని పాత మార్కెట్‌లో ఉన్న
+          హౌస్ ఆఫ్ రాఖీ బై శ్రీ రాజరాజేశ్వర రాఖీ స్టోర్, 1990 నుండి పండుగ షాపింగ్‌కు నమ్మకమైన పేరుగా నిలిచింది.
+          సాంప్రదాయ దారాల నుండి సున్నితమైన డిజైన్ రాఖీల వరకు — ప్రతి అనుబంధానికి
+          తగిన రాఖీలను మేము అందిస్తున్నాము.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       WHY CHOOSE US
+  ========================================================= -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <p class="section-eyebrow lang-en" data-aos>Why Choose Us</p>
+      <p class="section-eyebrow lang-te-block" data-aos>ఎందుకు మమ్మల్ని ఎంచుకోవాలి</p>
+      <h2 class="section-title lang-en" data-aos>What Sets Us Apart</h2>
+      <h2 class="section-title lang-te-block" data-aos>మా ప్రత్యేకతలు</h2>
+
+      <div class="why-grid">
+        <div class="why-card" data-aos>
+          <div class="why-icon">🧵</div>
+          <h3>
+            <span class="lang-en">Wide Variety</span>
+            <span class="lang-te-block">విస్తృత రకాలు</span>
+          </h3>
+          <p class="lang-en">Hundreds of designs to suit every taste and budget.</p>
+          <p class="lang-te-block">ప్రతి రుచికి, బడ్జెట్‌కు తగిన వందలాది డిజైన్లు.</p>
+        </div>
+        <div class="why-card" data-aos>
+          <div class="why-icon">🏅</div>
+          <h3>
+            <span class="lang-en">Trusted Quality</span>
+            <span class="lang-te-block">నమ్మకమైన నాణ్యత</span>
+          </h3>
+          <p class="lang-en">Carefully sourced materials for lasting, festive threads.</p>
+          <p class="lang-te-block">నిరంతర పండుగ కలయికకు తగిన పదార్థాలతో రూపొందించిన రాఖీలు.</p>
+        </div>
+        <div class="why-card" data-aos>
+          <div class="why-icon">📍</div>
+          <h3>
+            <span class="lang-en">Prime Location</span>
+            <span class="lang-te-block">ప్రధాన ప్రాంతం</span>
+          </h3>
+          <p class="lang-en">Easy to find in Old Market, right near Hanuman Temple.</p>
+          <p class="lang-te-block">పాత మార్కెట్‌లో, హనుమాన్ దేవాలయ సమీపంలో సులభంగా గుర్తించే స్థానం.</p>
+        </div>
+        <div class="why-card" data-aos>
+          <div class="why-icon">💬</div>
+          <h3>
+            <span class="lang-en">Friendly Service</span>
+            <span class="lang-te-block">స్నేహపూర్వక సేవ</span>
+          </h3>
+          <p class="lang-en">Our team helps you pick the perfect rakhi, every time.</p>
+          <p class="lang-te-block">మా బృందం ప్రతిసారీ సరైన రాఖీని ఎంచుకోవడంలో మీకు సహాయం చేస్తుంది.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       STORE TIMINGS
+  ========================================================= -->
+  <section class="timings" id="timings">
+    <div class="container timings-content" data-aos>
+      <div class="timings-icon" aria-hidden="true">🕒</div>
+      <h2 class="section-title light">
+        <span class="lang-en">Store Timings</span>
+        <span class="lang-te-block">దుకాణం సమయాలు</span>
+      </h2>
+      <p class="timings-hours lang-en">9:00 AM – 10:00 PM</p>
+      <p class="timings-hours lang-te-block">ఉదయం 9:00 – రాత్రి 10:00</p>
+      <p class="timings-days lang-en">Open All Days &middot; all days</p>
+      <p class="timings-days lang-te-block">అన్ని రోజులు తెరిచి ఉంటుంది</p>
+      <p class="timings-note lang-en">Extended hours during Raksha Bandhan season.</p>
+      <p class="timings-note lang-te-block">రక్షాబంధన్ seasonలో అదనపు సమయాలు ఉంటాయి.</p>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CONTACT
+  ========================================================= -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <p class="section-eyebrow lang-en" data-aos>Contact Us</p>
+      <p class="section-eyebrow lang-te-block" data-aos>మమ్మల్ని సంప్రదించండి</p>
+      <h2 class="section-title lang-en" data-aos>We'd Love To Hear From You</h2>
+      <h2 class="section-title lang-te-block" data-aos>మీ నుండి వినడానికి ఇష్టపడతాము</h2>
+
+      <div class="contact-grid">
+        <div class="contact-details" data-aos>
+          <div class="contact-card">
+            <div class="contact-card-header">
+              <span class="contact-icon">📞</span>
+              <div>
+                <h4 class="lang-en">Phone</h4>
+                <h4 class="lang-te-block">ఫోన్</h4>
+              </div>
+            </div>
+            <p class="lang-en"><a href="tel:+917993687372">+91 79936 87372</a></p>
+            <p class="lang-te-block"><a href="tel:+917993687372">+91 79936 87372</a></p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card-header">
+              <span class="contact-icon">💬</span>
+              <div>
+                <h4>WhatsApp</h4>
+              </div>
+            </div>
+            <p class="lang-en"><a href="https://wa.me/917993687372" target="_blank" rel="noopener">Message us directly</a></p>
+            <p class="lang-te-block"><a href="https://wa.me/917993687372" target="_blank" rel="noopener">నేరుగా మెసేజ్ పంపండి</a></p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card-header">
+              <span class="contact-icon">📸</span>
+              <div>
+                <h4>Instagram</h4>
+              </div>
+            </div>
+            <p class="lang-en"><a href="https://instagram.com" target="_blank" rel="noopener">Follow our latest collections</a></p>
+            <p class="lang-te-block"><a href="https://instagram.com" target="_blank" rel="noopener">మా తాజా సేకరణలను ఫాలో చేయండి</a></p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card-header">
+              <span class="contact-icon">📍</span>
+              <div>
+                <h4 class="lang-en">Visit Us</h4>
+                <h4 class="lang-te-block">మమ్మల్ని సందర్శించండి</h4>
+              </div>
+            </div>
+            <p class="lang-en">Old Market, Near Hanuman Temple, Vemulawada, Telangana</p>
+            <p class="lang-te-block">పాత మార్కెట్, హనుమాన్ దేవాలయ సమీపం, వేములవాడ, తెలంగాణ</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card-header">
+              <span class="contact-icon">🕒</span>
+              <div>
+                <h4 class="lang-en">Business Hours</h4>
+                <h4 class="lang-te-block">వ్యాపార సమయాలు</h4>
+              </div>
+            </div>
+            <p class="lang-en">9:00 AM – 10:00 PM • Open all days</p>
+            <p class="lang-te-block">ఉదయం 9:00 – రాత్రి 10:00 • అన్ని రోజులు తెరిచి ఉంటుంది</p>
+          </div>
+
+          <div class="contact-cta">
+            <a href="tel:+910000000000" class="btn btn-primary">
+              <span class="lang-en">Call</span>
+              <span class="lang-te-block">కాల్</span>
+            </a>
+            <a href="https://wa.me/917993687372" target="_blank" rel="noopener" class="btn btn-whatsapp">
+              <span class="lang-en">Share Store</span>
+              <span class="lang-te-block">స్టోర్ షేర్ చేయండి</span>
+            </a>
+            <a href="https://www.google.com/maps/search/?api=1&query=House+of+Rakhi+by+Shri+Rajarajeshwara+Rakhi+Store+Vemulawada+Telangana" target="_blank" rel="noopener" class="btn btn-whatsapp">
+              <span class="lang-en">Navigate</span>
+              <span class="lang-te-block">నావిగేట్</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-map" data-aos>
+          <iframe
+            title="House of Rakhi by Shri Rajarajeshwara Rakhi Store location map"
+            src="https://www.google.com/maps?q=Vemulawada+Telangana+Hanuman+Temple&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=House+of+Rakhi+by+Shri+Rajarajeshwara+Rakhi+Store+Vemulawada+Telangana" target="_blank" rel="noopener">
+            <span class="lang-en">Open in Google Maps &rarr;</span>
+            <span class="lang-te-block">గూగుల్ మ్యాప్స్‌లో తెరవండి &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOLLOW US
+  ========================================================= -->
+  <section class="follow-us" id="follow-us">
+    <div class="container">
+      <div class="follow-card" data-aos>
+        <div class="follow-content">
+          <p class="section-eyebrow lang-en">Follow Us</p>
+          <p class="section-eyebrow lang-te-block">మమ్మల్ని ఫాలో చేయండి</p>
+          <h2 class="section-title lang-en">Stay close to our latest Rakhi arrivals</h2>
+          <h2 class="section-title lang-te-block">మా తాజా రాఖీ సేకరణలతో ఎప్పుడూ అనుసంధానంగా ఉండండి</h2>
+          <p class="follow-copy lang-en">Discover premium designs, festive showcases, and handcrafted pieces from our collection.</p>
+          <p class="follow-copy lang-te-block">మా సేకరణల నుండి ప్రీమియం డిజైన్లు, పండుగ శైలులు మరియు చేతివృత్తి వస్తువులను చూడండి.</p>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="btn btn-primary follow-btn">
+            <span class="lang-en">Follow on Instagram</span>
+            <span class="lang-te-block">ఇన్‌స్టాగ్రామ్‌లో ఫాలో చేయండి</span>
+          </a>
+        </div>
+
+        <div class="instagram-feed" aria-label="Placeholder Instagram feed">
+          <article class="instagram-post">
+            <span class="post-tag">New Arrivals</span>
+            <h3 class="lang-en">Designer Rakhi</h3>
+            <h3 class="lang-te-block">డిజైనర్ రాఖీ</h3>
+          </article>
+          <article class="instagram-post">
+            <span class="post-tag">Handmade</span>
+            <h3 class="lang-en">Crafted with Love</h3>
+            <h3 class="lang-te-block">ప్రేమతో వ్రాయబడినవి</h3>
+          </article>
+          <article class="instagram-post">
+            <span class="post-tag">Festive Glow</span>
+            <h3 class="lang-en">Rakhi Celebration</h3>
+            <h3 class="lang-te-block">రాఖీ ఉత్సవం</h3>
+          </article>
+          <article class="instagram-post">
+            <span class="post-tag">Wholesale</span>
+            <h3 class="lang-en">Bulk Orders</h3>
+            <h3 class="lang-te-block">ప్యాక్ ఆర్డర్స్</h3>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer class="site-footer">
+    <div class="toran toran-footer" aria-hidden="true"></div>
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <img src="logo-placeholder.png" alt="House of Rakhi by Shri Rajarajeshwara Rakhi Store logo" class="footer-logo" loading="lazy" decoding="async" />
+        <p class="footer-name">
+          <span class="lang-en">House of Rakhi by Shri Rajarajeshwara Rakhi Store</span>
+          <span class="lang-te-block">హౌస్ ఆఫ్ రాఖీ బై శ్రీ రాజరాజేశ్వర రాఖీ స్టోర్</span>
+        </p>
+        <p class="lang-en">Since 1990 • 35+ Years of Trust • Wholesale & Retail</p>
+        <p class="lang-te-block">1990 నుండి • 35+ సంవత్సరాల నమ్మకం • wholesale & retail</p>
+      </div>
+
+      <nav class="footer-links">
+        <a href="#home" class="lang-en">Home</a>
+        <a href="#home" class="lang-te-block">హోమ్</a>
+        <a href="#collection" class="lang-en">Collection</a>
+        <a href="#collection" class="lang-te-block">సేకరణ</a>
+        <a href="#about" class="lang-en">About Us</a>
+        <a href="#about" class="lang-te-block">మా గురించి</a>
+        <a href="#why-us" class="lang-en">Why Us</a>
+        <a href="#why-us" class="lang-te-block">ఎందుకు మేము</a>
+        <a href="#timings" class="lang-en">Timings</a>
+        <a href="#timings" class="lang-te-block">సమయాలు</a>
+        <a href="#contact" class="lang-en">Contact</a>
+        <a href="#contact" class="lang-te-block">సంప్రదించండి</a>
+      </nav>
+
+      <div class="footer-contact">
+        <p class="lang-en">📍 Old Market, Near Hanuman Temple, Vemulawada, Telangana</p>
+        <p class="lang-te-block">📍 వేములవాడలోని పాత మార్కెట్, హనుమాన్ దేవాలయ సమీపం, తెలంగాణ</p>
+        <p class="lang-en">🕒 9:00 AM – 10:00 PM &middot; 📞 <a href="tel:+910000000000">+91 00000 00000</a></p>
+        <p class="lang-te-block">🕒 ఉదయం 9:00 – రాత్రి 10:00 &middot; 📞 <a href="tel:+910000000000">+91 00000 00000</a></p>
+      </div>
+
+      <p class="footer-bottom lang-en">&copy; <span class="year"></span> House of Rakhi by Shri Rajarajeshwara Rakhi Store. All rights reserved.</p>
+      <p class="footer-bottom lang-te-block">&copy; <span class="year"></span> హౌస్ ఆఫ్ రాఖీ బై శ్రీ రాజరాజేశ్వర రాఖీ స్టోర్. అన్ని హక్కులు కాపాడబడ్డాయి.</p>
+    </div>
+  </footer>
+
+  <!-- Floating action buttons -->
+  <a href="https://wa.me/917993687372" target="_blank" rel="noopener" class="fab fab-whatsapp" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3zM12 21.4h-.1c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.6 9.6 0 0 1-1.5-5.1C2.1 6.5 6.5 2.1 12 2.1c2.6 0 5.1 1 6.9 2.9a9.6 9.6 0 0 1 2.9 6.9c0 5.5-4.5 9.5-9.8 9.5zm5.4-7.2c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.1-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+  </a>
+  <a href="tel:+917993687372" class="fab fab-call" aria-label="Call the store">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="fab fab-instagram" aria-label="Follow on Instagram">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.2A4.8 4.8 0 1 1 7.2 12 4.8 4.8 0 0 1 12 7.2Zm0 2A2.8 2.8 0 1 0 14.8 12 2.8 2.8 0 0 0 12 9.2Zm5.2-3.5a1.2 1.2 0 1 1-1.2 1.2 1.2 1.2 0 0 1 1.2-1.2Z"/></svg>
+  </a>
+  <button type="button" id="shareWebsiteBtn" class="fab fab-share" aria-label="Share website">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M15.5 4a2.5 2.5 0 1 0-2.4 3.3l-4.2 2.7A2.5 2.5 0 1 0 6 12a2.5 2.5 0 0 0 .9-4.8l4.2-2.7A2.5 2.5 0 0 0 15.5 4Zm0 2a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1ZM6 10.5a.5.5 0 1 1 0 1 .5.5 0 0 1 0-1Zm9.5 6.5a2.5 2.5 0 1 0-2.4-3.3l-4.2 2.7A2.5 2.5 0 1 0 6 14a2.5 2.5 0 0 0 .9 4.8l4.2 2.7A2.5 2.5 0 1 0 15.5 17Z"/></svg>
+  </button>
+
+  <!-- Back to top -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="products-new.js"></script>
+  <script defer>
+    const cartItemsContainer = document.getElementById('cartItems');
+    const subtotalAmount = document.getElementById('subtotalAmount');
+    const deliveryAmount = document.getElementById('deliveryAmount');
+    const grandTotalAmount = document.getElementById('grandTotalAmount');
+    const deliveryAreaSelect = document.getElementById('deliveryArea');
+    const whatsappCheckoutForm = document.getElementById('whatsappCheckoutForm');
+    const customerNameInput = document.getElementById('customerName');
+    const customerPhoneInput = document.getElementById('customerPhone');
+    const customerAddressInput = document.getElementById('customerAddress');
+    const customerDeliveryLocationInput = document.getElementById('customerDeliveryLocation');
+    const categoryGrid = document.getElementById('categoryGrid');
+    const searchInput = document.getElementById('collectionSearch');
+    const productModal = document.createElement('div');
+    productModal.className = 'product-modal-backdrop';
+    productModal.setAttribute('aria-hidden', 'true');
+    productModal.innerHTML = '<div class="product-modal" role="dialog" aria-modal="true" aria-label="Product details"></div>';
+    document.body.appendChild(productModal);
+    const categoryFilter = document.getElementById('filterCategory');
+    const priceFilter = document.getElementById('filterPrice');
+    const stockFilter = document.getElementById('filterStock');
+    const clearFiltersButton = document.getElementById('clearFilters');
+    const filterChips = Array.from(document.querySelectorAll('.filter-chip'));
+    const pageCategories = window.categories || [];
+    const getAllProducts = () => window.products || [];
+    const cartStorageKey = 'house-of-rakhi-cart-v1';
+
+    const cartState = {
+      items: []
+    };
+
+    function loadCart() {
+      try {
+        const savedCart = JSON.parse(localStorage.getItem(cartStorageKey) || 'null');
+        if (Array.isArray(savedCart)) {
+          cartState.items = savedCart.filter(Boolean).map((item) => ({
+            ...item,
+            quantity: Math.max(1, Number(item.quantity || 1))
+          }));
+        }
+      } catch (error) {
+        console.warn('Unable to restore cart state', error);
+      }
+    }
+
+    function persistCart() {
+      try {
+        localStorage.setItem(cartStorageKey, JSON.stringify(cartState.items));
+      } catch (error) {
+        console.warn('Unable to save cart state', error);
+      }
+    }
+
+    function updateCartCount() {
+      const cartCountElement = document.getElementById('cartCount');
+      if (!cartCountElement) return;
+      const count = cartState.items.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+      cartCountElement.textContent = String(count);
+      cartCountElement.style.display = count ? 'grid' : 'none';
+    }
+
+    function getDeliveryCharge() {
+      if (!cartState.items.length) return 0;
+
+      const zone = deliveryAreaSelect?.value || 'local';
+      const location = String(customerDeliveryLocationInput?.value || '').trim().toLowerCase();
+
+      if (zone === 'outstation') return 150;
+      if (zone === 'nearby' || /sircilla|huzurabad|karimnagar|manthani|jagtial|warangal|kamareddy|nizamabad|khammam|hyderabad|peddapalli|godavarikhani/.test(location)) return 80;
+      return 30;
+    }
+
+    function formatCurrency(value) {
+      return `₹${Number(value).toLocaleString('en-IN')}`;
+    }
+
+    function addToCart(product) {
+      const existingItem = cartState.items.find((item) => item.id === product.id);
+      if (existingItem) {
+        existingItem.quantity += product.quantity || 1;
+      } else {
+        cartState.items.push({
+          id: product.id,
+          dbId: product.dbId || product.id,
+          name: product.name,
+          price: product.price,
+          quantity: product.quantity || 1,
+          image: product.image,
+          category: product.category,
+          subcategory: product.subcategory || product.category
+        });
+      }
+      persistCart();
+      renderCart();
+    }
+
+    function renderCart() {
+      if (!cartItemsContainer) return;
+
+      if (!cartState.items.length) {
+        cartItemsContainer.innerHTML = `
+          <div class="empty-cart">
+            <h3 class="lang-en">Your cart is empty</h3>
+            <h3 class="lang-te-block">మీ కార్ట్ ఖాళీగా ఉంది</h3>
+            <p class="lang-en">Choose a few premium pieces and they will appear here.</p>
+            <p class="lang-te-block">కొన్ని ప్రీమియం వస్తువులు ఎంచుకొని ఇక్కడ కనిపిస్తాయి.</p>
+          </div>
+        `;
+        if (subtotalAmount) subtotalAmount.textContent = formatCurrency(0);
+        if (deliveryAmount) deliveryAmount.textContent = formatCurrency(0);
+        if (grandTotalAmount) grandTotalAmount.textContent = formatCurrency(0);
+        updateCartCount();
+        return;
+      }
+
+      cartItemsContainer.innerHTML = cartState.items.map((item) => `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.name}" loading="lazy" />
+          <div class="cart-item-info">
+            <div class="cart-item-header">
+              <span class="cart-item-title">${item.name}</span>
+              <span class="cart-item-price">${formatCurrency(item.price * item.quantity)}</span>
+            </div>
+            <p class="cart-item-meta">${item.category} • ${item.subcategory}</p>
+            <div class="cart-actions">
+              <button class="qty-btn" data-action="decrease" data-id="${item.id}">−</button>
+              <strong>${item.quantity}</strong>
+              <button class="qty-btn" data-action="increase" data-id="${item.id}">+</button>
+              <button class="remove-btn" data-action="remove" data-id="${item.id}">
+                <span class="lang-en">Remove</span>
+                <span class="lang-te-block">తొలగించండి</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      updateCartTotals();
+    }
+
+    function updateCartTotals() {
+      const subtotal = cartState.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const delivery = getDeliveryCharge();
+      const grandTotal = subtotal + delivery;
+
+      if (subtotalAmount) subtotalAmount.textContent = formatCurrency(subtotal);
+      if (deliveryAmount) deliveryAmount.textContent = formatCurrency(delivery);
+      if (grandTotalAmount) grandTotalAmount.textContent = formatCurrency(grandTotal);
+      updateCartCount();
+    }
+
+    function buildWhatsAppMessage() {
+      const subtotal = cartState.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const delivery = getDeliveryCharge();
+      const grandTotal = subtotal + delivery;
+      const lines = [
+        'Hello House of Rakhi! I would like to place an order.',
+        '',
+        'Customer Name: ' + (customerNameInput?.value || 'N/A'),
+        'Phone: ' + (customerPhoneInput?.value || 'N/A'),
+        'Address: ' + (customerAddressInput?.value || 'N/A'),
+        'Delivery Zone: ' + (deliveryAreaSelect?.value || 'N/A'),
+        'Delivery Location: ' + (customerDeliveryLocationInput?.value || 'N/A'),
+        '',
+        'Order Details:'
+      ];
+
+      cartState.items.forEach((item) => {
+        lines.push(`- ${item.name} | ID: ${item.dbId || item.id} | Qty: ${item.quantity} | Price: ₹${item.price} | Line Total: ₹${item.price * item.quantity}`);
+      });
+
+      lines.push('', `Subtotal: ₹${subtotal}`, `Delivery: ₹${delivery}`, `Grand Total: ₹${grandTotal}`);
+
+      return lines.join('\n');
+    }
+
+    function updateQuantity(id, delta) {
+      cartState.items = cartState.items
+        .map((item) => {
+          if (item.id === id) {
+            const nextQuantity = item.quantity + delta;
+            return nextQuantity > 0 ? { ...item, quantity: nextQuantity } : null;
+          }
+          return item;
+        })
+        .filter(Boolean);
+      persistCart();
+      renderCart();
+    }
+
+    document.addEventListener('click', (event) => {
+      const addToCartButton = event.target.closest('[data-action="add-to-cart"]');
+      if (addToCartButton) {
+        const productId = Number(addToCartButton.getAttribute('data-product-id'));
+        const product = getAllProducts().find((item) => item.id === productId);
+        if (product) {
+          const qtyValue = document.querySelector(`.qty-value[data-product-id="${productId}"]`);
+          const selectedQty = qtyValue ? Number(qtyValue.textContent) : product.quantity || 1;
+          addToCart({ ...product, quantity: selectedQty });
+        }
+        return;
+      }
+
+      const detailButton = event.target.closest('[data-action="open-details"]');
+      if (detailButton) {
+        const productId = Number(detailButton.getAttribute('data-product-id'));
+        openProductModal(productId);
+        return;
+      }
+
+      const modalOpenTrigger = event.target.closest('.cat-card[data-product-id]');
+      if (modalOpenTrigger) {
+        const interactiveTarget = event.target.closest('button, a, input, select, textarea');
+        if (!interactiveTarget) {
+          openProductModal(Number(modalOpenTrigger.getAttribute('data-product-id')));
+        }
+        return;
+      }
+
+      const modalAddToCartButton = event.target.closest('[data-action="modal-add-to-cart"]');
+      if (modalAddToCartButton) {
+        const productId = Number(modalAddToCartButton.getAttribute('data-product-id'));
+        const product = getAllProducts().find((item) => item.id === productId);
+        if (product) {
+          addToCart({ ...product, quantity: 1 });
+        }
+        closeProductModal();
+        return;
+      }
+
+      const qtyStepButton = event.target.closest('[data-action="increase-qty"], [data-action="decrease-qty"]');
+      if (qtyStepButton) {
+        const productId = Number(qtyStepButton.getAttribute('data-product-id'));
+        const targetValue = document.querySelector(`.qty-value[data-product-id="${productId}"]`);
+        if (!targetValue) return;
+        const current = Number(targetValue.textContent) || 1;
+        const next = qtyStepButton.getAttribute('data-action') === 'increase-qty' ? current + 1 : Math.max(1, current - 1);
+        targetValue.textContent = String(next);
+      }
+
+      const target = event.target.closest('[data-action]');
+      if (!target) return;
+
+      const id = Number(target.getAttribute('data-id'));
+      const action = target.getAttribute('data-action');
+
+      if (action === 'increase') {
+        updateQuantity(id, 1);
+      } else if (action === 'decrease') {
+        updateQuantity(id, -1);
+      } else if (action === 'remove') {
+        cartState.items = cartState.items.filter((item) => item.id !== id);
+        persistCart();
+        renderCart();
+      }
+    });
+
+    productModal.addEventListener('click', (event) => {
+      if (event.target === productModal) {
+        closeProductModal();
+        return;
+      }
+
+      const closeButton = event.target.closest('.modal-close');
+      if (closeButton) {
+        closeProductModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeProductModal();
+      }
+    });
+
+    if (deliveryAreaSelect) {
+      deliveryAreaSelect.addEventListener('change', updateCartTotals);
+    }
+
+    if (customerDeliveryLocationInput) {
+      customerDeliveryLocationInput.addEventListener('input', updateCartTotals);
+    }
+
+    if (whatsappCheckoutForm) {
+      whatsappCheckoutForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (!cartState.items.length) {
+          alert('Your cart is empty. Please add items before checking out.');
+          return;
+        }
+
+        const supabase = window.supabaseClient;
+        if (!supabase) {
+          console.error('Supabase client not available on window.supabaseClient');
+          alert('Unable to connect to order service. Please try again later.');
+          return;
+        }
+
+        // Build order payload
+        const items = cartState.items.map((item) => ({
+          product_id: item.dbId || item.id,
+          name: item.name,
+          qty: Number(item.quantity || 1),
+          price: Number(item.price || 0)
+        }));
+
+        const subtotal = cartState.items.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.quantity || 0)), 0);
+        const delivery_charge = getDeliveryCharge();
+        const total = subtotal + delivery_charge;
+
+        // Generate server-side order id using the provided function
+        try {
+          const { data: generatedId, error: rpcError } = await supabase.rpc('generate_order_id');
+          if (rpcError) {
+            const e = rpcError;
+            console.error("Message:", e.message);
+            console.error("Details:", e.details);
+            console.error("Hint:", e.hint);
+            console.error("Code:", e.code);
+            alert('Unable to create order id. Please try again later.');
+            return;
+          }
+
+          const orderId = typeof generatedId === 'string' ? generatedId : (generatedId && generatedId[0]) || null;
+          if (!orderId) {
+            console.error('generate_order_id returned no id', generatedId);
+            alert('Unable to create order id. Please try again later.');
+            return;
+          }
+
+          const payload = {
+            id: orderId,
+            customer_name: String(customerNameInput?.value || '').trim(),
+            phone: String(customerPhoneInput?.value || '').trim(),
+            whatsapp_number: String(customerPhoneInput?.value || '').trim(),
+            items: items,
+            subtotal: subtotal,
+            delivery_charge: delivery_charge,
+            total: total
+          };
+
+          const { data, error } = await supabase.from('orders').insert([payload]);
+          if (error) {
+            console.error("Message:", error.message);
+            console.error("Details:", error.details);
+            console.error("Hint:", error.hint);
+            console.error("Code:", error.code);
+            alert('Unable to place order right now. Please try again.');
+            return;
+          }
+
+          // Success: open WhatsApp with the same message
+          const message = encodeURIComponent(buildWhatsAppMessage());
+          window.open(`https://wa.me/917993687372?text=${message}`, '_blank', 'noopener,noreferrer');
+
+          // Optionally clear the cart and persist state
+          cartState.items = [];
+          persistCart();
+          renderCart();
+
+        } catch (err) {
+          console.error('Unexpected error while placing order', err);
+          alert('An unexpected error occurred. Please try again.');
+        }
+      });
+    }
+
+    function getStockText(product) {
+      const stockValue = String(product.stockStatus || product.availability || 'In Stock').toLowerCase();
+      if (stockValue.includes('out of stock')) return 'Out of Stock';
+      if (stockValue.includes('limited')) return 'Limited Stock';
+      return 'In Stock';
+    }
+
+    function closeProductModal() {
+      productModal.classList.remove('is-open');
+      productModal.setAttribute('aria-hidden', 'true');
+      productModal.querySelector('.product-modal').innerHTML = '';
+    }
+
+    function openProductModal(productId) {
+      const product = getAllProducts().find((item) => item.id === productId);
+      if (!product) return;
+
+      const modalContent = productModal.querySelector('.product-modal');
+      modalContent.innerHTML = `
+        <button type="button" class="modal-close" aria-label="Close product details">×</button>
+        <div class="product-modal-grid">
+          <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
+          <div class="product-modal-body">
+            <p class="product-pill">${product.category}</p>
+            <h3>${product.name}</h3>
+            <p class="product-modal-price">₹${product.price}</p>
+            <p class="product-modal-stock">${getStockText(product)}</p>
+            <p class="product-modal-description">${product.description}</p>
+            <div class="product-modal-actions">
+              <button type="button" class="btn btn-primary" data-action="modal-add-to-cart" data-product-id="${product.id}">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      `;
+      productModal.classList.add('is-open');
+      productModal.setAttribute('aria-hidden', 'false');
+    }
+
+    loadCart();
+    renderCart();
+
+    const activeFilters = {
+      category: '',
+      price: '',
+      stock: '',
+      toggles: []
+    };
+
+    function hasActiveFilters() {
+      return Boolean(
+        activeFilters.category ||
+        activeFilters.price ||
+        activeFilters.stock ||
+        activeFilters.toggles.length
+      );
+    }
+
+    function populateCategoryFilters() {
+      if (!categoryFilter) return;
+      categoryFilter.innerHTML = '<option value="">All Categories</option>' + pageCategories.map((category) => `<option value="${category.name}">${category.name}</option>`).join('');
+    }
+
+    function matchesPrice(product, selectedPrice) {
+      if (!selectedPrice) return true;
+      const price = Number(product.price) || 0;
+      switch (selectedPrice) {
+        case 'under-100': return price < 100;
+        case '100-300': return price >= 100 && price <= 300;
+        case '300-500': return price > 300 && price <= 500;
+        case '500-plus': return price > 500;
+        default: return true;
+      }
+    }
+
+    function matchesStock(product, selectedStock) {
+      if (!selectedStock) return true;
+      const stockValue = (product.stockStatus || product.availability || '').toLowerCase();
+      if (selectedStock === 'in-stock') return stockValue.includes('in stock');
+      if (selectedStock === 'limited') return stockValue.includes('limited');
+      if (selectedStock === 'out-of-stock') return stockValue.includes('out of stock');
+      return true;
+    }
+
+    // Cards injected after page load (e.g. by filtering) are never seen by
+    // script.js's IntersectionObserver, so [data-aos] would leave them stuck
+    // at opacity:0 forever. Mark them as already revealed so they display
+    // immediately, the way a live product filter should behave.
+    function revealNewlyRenderedCards(container) {
+      if (!container) return;
+      container.querySelectorAll('[data-aos]').forEach((el) => el.classList.add('in-view'));
+    }
+
+    function renderCollection(query = '') {
+      if (!categoryGrid) return;
+
+      const normalizedQuery = query.trim().toLowerCase();
+      const filteredProducts = getAllProducts().filter((product) => {
+        if (!hasActiveFilters() && !normalizedQuery) {
+          return true;
+        }
+
+        const searchableText = [product.name, product.category, product.subcategory, product.description, String(product.id)].filter(Boolean).join(' ').toLowerCase();
+        const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
+        const matchesCategory = !activeFilters.category || product.category.toLowerCase() === activeFilters.category.toLowerCase();
+        const isPriceMatch = matchesPrice(product, activeFilters.price);
+        const isStockMatch = matchesStock(product, activeFilters.stock);
+        const matchesToggles = activeFilters.toggles.every((toggle) => {
+          switch (toggle) {
+            case 'newest': return Boolean(product.isNewest);
+            case 'best-selling': return Boolean(product.isBestSelling);
+            case 'wholesale': return Boolean(product.wholesale);
+            case 'premium': return Boolean(product.premium);
+            case 'handmade': return Boolean(product.isHandmade);
+            case 'kids-rakhi': return String(product.category || '').toLowerCase() === 'kids rakhi';
+            case 'designer': return Boolean(product.isDesigner);
+            case 'god-rakhi': return Boolean(product.isGodRakhi);
+            default: return true;
+          }
+        });
+
+        return (
+    matchesQuery &&
+    matchesCategory &&
+    isPriceMatch &&
+    isStockMatch &&
+    matchesToggles
+);
+      });
+
+      if (!filteredProducts.length) {
+        categoryGrid.innerHTML = `
+          <div class="empty-state" data-aos>
+            <h3 class="lang-en">No matching products found</h3>
+            <h3 class="lang-te-block">ఏ Matches అయ్యే ఉత్పత్తులు లేవు</h3>
+            <p class="lang-en">Try another search term or combine a few filters.</p>
+            <p class="lang-te-block">మరొక శోధన పదం లేదా ఒకటి కంటే ఎక్కువ ఫిల్టర్లను కలిపి ప్రయత్నించండి.</p>
+          </div>
+        `;
+        revealNewlyRenderedCards(categoryGrid);
+        return;
+      }
+
+      categoryGrid.innerHTML = filteredProducts.map((product) => `
+        <article class="cat-card search-result-card" data-product-id="${product.id}" data-aos>
+          <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
+          <div class="cat-body">
+            <p class="product-pill">${product.category}</p>
+            <h3>${product.name}</h3>
+            <p class="product-price">₹${product.price}</p>
+            <div class="product-card-footer">
+              <button type="button" class="btn btn-primary" data-action="open-details" data-product-id="${product.id}">
+                <span class="lang-en">View Details</span>
+                <span class="lang-te-block">వివరాలు చూడండి</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      revealNewlyRenderedCards(categoryGrid);
+    }
+
+    function syncFilterChips() {
+      filterChips.forEach((chip) => {
+        const isActive = activeFilters.toggles.includes(chip.getAttribute('data-filter'));
+        chip.classList.toggle('active', isActive);
+      });
+    }
+
+    function updateFilters() {
+      renderCollection(searchInput?.value || '');
+      syncFilterChips();
+    }
+
+    if (categoryFilter) {
+      categoryFilter.addEventListener('change', (event) => {
+        activeFilters.category = event.target.value;
+        updateFilters();
+      });
+    }
+
+    if (priceFilter) {
+      priceFilter.addEventListener('change', (event) => {
+        activeFilters.price = event.target.value;
+        updateFilters();
+      });
+    }
+
+    if (stockFilter) {
+      stockFilter.addEventListener('change', (event) => {
+        activeFilters.stock = event.target.value;
+        updateFilters();
+      });
+    }
+
+    filterChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const filterValue = chip.getAttribute('data-filter');
+        if (activeFilters.toggles.includes(filterValue)) {
+          activeFilters.toggles = activeFilters.toggles.filter((item) => item !== filterValue);
+        } else {
+          activeFilters.toggles.push(filterValue);
+        }
+        updateFilters();
+      });
+    });
+
+    if (clearFiltersButton) {
+      clearFiltersButton.addEventListener('click', () => {
+        activeFilters.category = '';
+        activeFilters.price = '';
+        activeFilters.stock = '';
+        activeFilters.toggles = [];
+        if (categoryFilter) categoryFilter.value = '';
+        if (priceFilter) priceFilter.value = '';
+        if (stockFilter) stockFilter.value = '';
+        filterChips.forEach((chip) => chip.classList.remove('active'));
+        updateFilters();
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (event) => renderCollection(event.target.value));
+    }
+
+    populateCategoryFilters();
+    if (categoryFilter) categoryFilter.value = '';
+    if (priceFilter) priceFilter.value = '';
+    if (stockFilter) stockFilter.value = '';
+    filterChips.forEach((chip) => chip.classList.remove('active'));
+    renderCollection('');
+
+    // Fired by products-new.js once real product rows load from Supabase
+    // (see supabase-config.js / products-new.js). Re-runs the same render
+    // functions above with the live data, replacing the demo placeholders.
+    window.addEventListener('rakhi:products-ready', () => {
+      populateCategoryFilters();
+      renderCollection(searchInput?.value || '');
+    });
+  </script>
+  <script>
+    const rotatingPhrases = [
+      { en: 'Celebrating Every Bond', te: 'ప్రతి అనుబంధాన్ని జరుపుకుంటూ' },
+      { en: 'Threads That Celebrate Relationships', te: 'సంబంధాలను జరుపుకునే దారాలు' },
+      { en: 'Crafting Bonds Since 1990', te: '1990 నుండి బంధాలను నిర్మిస్తున్నాము' },
+      { en: '35+ Years of Trusted Rakhi Collections', te: '35+ సంవత్సరాల నమ్మకమైన రాఖీ సేకరణలు' },
+      { en: 'Premium Wholesale & Retail Rakhi Store', te: 'ప్రీమియం wholesales & retail రాఖీ స్టోర్' },
+      { en: 'Direct From India\'s Finest Rakhi Markets', te: 'భారతదేశపు ఉత్తమ రఖీ మార్కెట్ల నుంచి' },
+      { en: 'Celebrating Love, Tradition & Togetherness', te: 'ప్రేమ, సంప్రదాయం మరియు కలిసి ఉండేలా జరుపుకుంటున్నాం' },
+      { en: 'Handpicked Premium Rakhi Collection', te: 'ఎంచి ఎంపిక చేసిన ప్రీమియం రఖీ సేకరణ' },
+      { en: 'One Store For Every Raksha Bandhan', te: 'ప్రతి రక్షా బంధన్ కోసం ఒక స్టోర్' }
+    ];
+
+    const rotator = document.querySelector('.hero-rotator');
+    const currentWord = rotator?.querySelector('.rotating-word');
+    const langSwitcher = document.querySelector('.lang-switcher');
+    const langToggle = document.querySelector('.lang-toggle');
+    const langOptions = document.querySelectorAll('.lang-option');
+    const langCurrent = document.querySelector('.lang-current');
+    const storedLang = localStorage.getItem('site-language');
+    const savedLang = storedLang === 'te' ? 'te' : 'en';
+    let index = 0;
+
+    function closeLanguageMenu() {
+      if (langSwitcher) {
+        langSwitcher.classList.remove('open');
+      }
+      if (langToggle) {
+        langToggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function setLanguage(lang) {
+      const nextLang = lang === 'te' ? 'te' : 'en';
+      document.body.setAttribute('data-lang', nextLang);
+      langOptions.forEach((option) => {
+        const isActive = option.getAttribute('data-lang') === nextLang;
+        option.classList.toggle('active', isActive);
+        option.setAttribute('aria-pressed', String(isActive));
+        option.setAttribute('aria-selected', String(isActive));
+      });
+
+      if (langCurrent) {
+        langCurrent.textContent = nextLang === 'te' ? 'తెలుగు' : 'English';
+      }
+
+      closeLanguageMenu();
+      localStorage.setItem('site-language', nextLang);
+      updateRotatingPhrase();
+    }
+
+    function updateRotatingPhrase() {
+      if (!currentWord) return;
+      const lang = document.body.getAttribute('data-lang') || 'en';
+      const phrase = rotatingPhrases[(rotatingPhrases.length + index) % rotatingPhrases.length];
+      currentWord.textContent = phrase[lang === 'te' ? 'te' : 'en'];
+    }
+
+    if (rotator && currentWord) {
+      updateRotatingPhrase();
+      setInterval(() => {
+        currentWord.classList.remove('is-visible');
+        setTimeout(() => {
+          index = (index + 1) % rotatingPhrases.length;
+          updateRotatingPhrase();
+          currentWord.classList.add('is-visible');
+        }, 300);
+      }, 3000);
+    }
+
+    if (langToggle) {
+      langToggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isOpen = langSwitcher?.classList.toggle('open');
+        langToggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+      });
+    }
+
+    langOptions.forEach((option) => {
+      option.addEventListener('click', () => setLanguage(option.getAttribute('data-lang')));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!langSwitcher || langSwitcher.contains(event.target)) return;
+      closeLanguageMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeLanguageMenu();
+      }
+    });
+
+    setLanguage(savedLang);
+  </script>
+  <script>
+    const countdownTarget = new Date('2026-08-31T00:00:00');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = countdownTarget - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+  
+  <script src="script.js" defer></script>
+</body>
+</html>
