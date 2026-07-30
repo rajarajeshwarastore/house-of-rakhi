@@ -1030,9 +1030,8 @@ body.loaded .page-loader {
 .product-modal-actions .btn {
   flex: 1 1 220px;
   justify-content: center;
-  min-height: 52px;
   border-radius: 12px;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
 }
 
 @media (max-width: 768px) {
@@ -1103,8 +1102,8 @@ body.loaded .page-loader {
   }
 
   .collection-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
   }
 
   .cat-body {
@@ -1114,6 +1113,7 @@ body.loaded .page-loader {
   .product-card-footer .btn {
     width: 100%;
     justify-content: center;
+    padding: 0.68rem 0.8rem;
   }
 
   .cart-shell {
@@ -1846,30 +1846,32 @@ body.loaded .page-loader {
 
 @media (max-width: 600px) {
   .fab {
-    width: 50px;
-    height: 50px;
-    right: 1rem;
+    width: 46px;
+    height: 46px;
+    right: 0.8rem;
   }
 
   .fab-call {
-    bottom: 1rem;
+    bottom: 0.8rem;
   }
 
   .fab-whatsapp {
-    bottom: 5.2rem;
+    bottom: 5rem;
   }
 
   .fab-instagram {
-    bottom: 9.4rem;
+    bottom: 9.1rem;
   }
 
   .fab-share {
-    bottom: 13.7rem;
+    bottom: 13.2rem;
   }
 
   .back-to-top {
-    left: 1rem;
-    bottom: 1rem;
+    left: 0.8rem;
+    bottom: 0.8rem;
+    width: 42px;
+    height: 42px;
   }
 }
 
