@@ -205,14 +205,25 @@ if (typeof module !== 'undefined' && module.exports) {
     if (error || !data) return map;
 
     data.forEach((imageRow) => {
-      if (map[imageRow.product_id]) return; // keep the first (lowest sort_order) image
+      if (!map[imageRow.product_id]) {
+        map[imageRow.product_id] = [];
+      }
+
       const { data: publicUrlData } = window.supabaseClient
         .storage
         .from('product-images')
         .getPublicUrl(imageRow.storage_path);
+
       if (publicUrlData?.publicUrl) {
-        map[imageRow.product_id] = publicUrlData.publicUrl;
+        map[imageRow.product_id].push({
+          url: publicUrlData.publicUrl,
+          sort_order: imageRow.sort_order || 0
+        });
       }
+    });
+
+    Object.keys(map).forEach((productId) => {
+      map[productId].sort((a, b) => a.sort_order - b.sort_order);
     });
 
     return map;
@@ -231,6 +242,10 @@ if (typeof module !== 'undefined' && module.exports) {
 
     const liveProducts = rows.map((row, index) => {
       const flags = mapTagsToFlags(row);
+      const imageEntries = imageUrlByProductId[row.id] || [];
+      const fallbackImage = getProductImage(index);
+      const images = imageEntries.length ? imageEntries.map((entry) => entry.url).slice(0, 5) : [fallbackImage];
+
       return {
         id: index + 1,          // stable numeric id — everything on the page keys off this
         dbId: row.id,           // real Supabase id (e.g. 'GOD001') — used for order references
@@ -242,7 +257,8 @@ if (typeof module !== 'undefined' && module.exports) {
         stock: row.stock,
         description: row.description || '',
         descriptionTe: row.description_te || '',
-        image: imageUrlByProductId[row.id] || getProductImage(index),
+        image: images[0] || fallbackImage,
+        images,
         discount: row.discount_percent || 0,
         availability: row.status,
         stockStatus: row.status,

@@ -1092,8 +1092,8 @@
       <div class="footer-contact">
         <p class="lang-en">📍 Old Market, Near Hanuman Temple, Vemulawada, Telangana</p>
         <p class="lang-te-block">📍 వేములవాడలోని పాత మార్కెట్, హనుమాన్ దేవాలయ సమీపం, తెలంగాణ</p>
-        <p class="lang-en">🕒 9:00 AM – 10:00 PM &middot; 📞 <a href="tel:+910000000000">+91 00000 00000</a></p>
-        <p class="lang-te-block">🕒 ఉదయం 9:00 – రాత్రి 10:00 &middot; 📞 <a href="tel:+910000000000">+91 00000 00000</a></p>
+        <p class="lang-en">🕒 9:00 AM – 10:00 PM &middot; 📞 <a href="tel:+917993687372">+91 79936 87372</a></p>
+        <p class="lang-te-block">🕒 ఉదయం 9:00 – రాత్రి 10:00 &middot; 📞 <a href="tel:+917993687372">+91 79936 87372</a></p>
         <a href="https://www.instagram.com/house_of_.rakhi?utm_source=qr&igsh=MWJmdjlkaTh0Y3dhag==" target="_blank" rel="noopener" class="social-link">
           <span class="social-icon">📸</span>
           <span class="lang-en">Follow on Instagram</span>
@@ -1138,6 +1138,9 @@
     const categoryGrid = document.getElementById('categoryGrid');
     const searchInput = document.getElementById('collectionSearch');
     const productModal = document.createElement('div');
+    let currentProductId = null;
+    let currentModalHistoryState = null;
+    let suppressHistoryBack = false;
     productModal.className = 'product-modal-backdrop';
     productModal.setAttribute('aria-hidden', 'true');
     productModal.innerHTML = '<div class="product-modal" role="dialog" aria-modal="true" aria-label="Product details"></div>';
@@ -1239,27 +1242,33 @@
         return;
       }
 
-      cartItemsContainer.innerHTML = cartState.items.map((item) => `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}" loading="lazy" />
-          <div class="cart-item-info">
-            <div class="cart-item-header">
-              <span class="cart-item-title">${item.name}</span>
-              <span class="cart-item-price">${formatCurrency(item.price * item.quantity)}</span>
-            </div>
-            <p class="cart-item-meta">${item.category} • ${item.subcategory}</p>
-            <div class="cart-actions">
-              <button class="qty-btn" data-action="decrease" data-id="${item.id}">−</button>
-              <strong>${item.quantity}</strong>
-              <button class="qty-btn" data-action="increase" data-id="${item.id}">+</button>
-              <button class="remove-btn" data-action="remove" data-id="${item.id}">
-                <span class="lang-en">Remove</span>
-                <span class="lang-te-block">తొలగించండి</span>
-              </button>
+      cartItemsContainer.innerHTML = cartState.items.map((item) => {
+        const isTe = getCurrentLanguage() === 'te';
+        const itemName = isTe ? (item.nameTe || item.name) : item.name;
+        const itemCategory = isTe ? (item.categoryTe || item.category) : item.category;
+        const itemSubcategory = isTe ? (item.subcategoryTe || item.subcategory) : item.subcategory;
+        return `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${escapeHtml(itemName)}" loading="lazy" />
+            <div class="cart-item-info">
+              <div class="cart-item-header">
+                <span class="cart-item-title">${escapeHtml(itemName)}</span>
+                <span class="cart-item-price">${formatCurrency(item.price * item.quantity)}</span>
+              </div>
+              <p class="cart-item-meta">${escapeHtml(itemCategory)} • ${escapeHtml(itemSubcategory)}</p>
+              <div class="cart-actions">
+                <button class="qty-btn" data-action="decrease" data-id="${item.id}">−</button>
+                <strong>${item.quantity}</strong>
+                <button class="qty-btn" data-action="increase" data-id="${item.id}">+</button>
+                <button class="remove-btn" data-action="remove" data-id="${item.id}">
+                  <span class="lang-en">Remove</span>
+                  <span class="lang-te-block">తొలగించండి</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       updateCartTotals();
     }
@@ -1393,6 +1402,13 @@
       }
     });
 
+    window.addEventListener('popstate', () => {
+      if (productModal.classList.contains('is-open') && currentModalHistoryState) {
+        suppressHistoryBack = true;
+        closeProductModal();
+      }
+    });
+
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         closeProductModal();
@@ -1499,38 +1515,105 @@
       return 'In Stock';
     }
 
+    function getCurrentLanguage() {
+      return document.body.getAttribute('data-lang') === 'te' ? 'te' : 'en';
+    }
+
+    function getProductLabel(product, field) {
+      const lang = getCurrentLanguage();
+      if (lang === 'te') {
+        if (field === 'name') return product.nameTe || product.name || '';
+        if (field === 'description') return product.descriptionTe || product.description || '';
+        if (field === 'category') return product.categoryTe || product.category || '';
+        if (field === 'stock') return getLocalizedStockText(product);
+      }
+      return field === 'name' ? (product.name || '') : field === 'description' ? (product.description || '') : field === 'category' ? (product.category || '') : getLocalizedStockText(product);
+    }
+
+    function getLocalizedStockText(product) {
+      const stockValue = String(product.stockStatus || product.availability || 'In Stock').toLowerCase();
+      if (getCurrentLanguage() === 'te') {
+        if (stockValue.includes('out of stock')) return 'అమోదించబడిన స్టాక్ లేదు';
+        if (stockValue.includes('limited')) return 'పరిమిత స్టాక్';
+        return 'స్టాక్‌లో ఉంది';
+      }
+      if (stockValue.includes('out of stock')) return 'Out of Stock';
+      if (stockValue.includes('limited')) return 'Limited Stock';
+      return 'In Stock';
+    }
+
+    function getLocaleText(enText, teText) {
+      return getCurrentLanguage() === 'te' ? teText : enText;
+    }
+
     function closeProductModal() {
       productModal.classList.remove('is-open');
       productModal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('modal-open');
       productModal.querySelector('.product-modal').innerHTML = '';
+      if (currentModalHistoryState && !suppressHistoryBack) {
+        window.history.back();
+      }
+      currentModalHistoryState = null;
+      suppressHistoryBack = false;
+      currentProductId = null;
+    }
+
+    function syncModalHistory(productId) {
+      if (window.history.state?.productId === productId) return;
+      const state = { productId };
+      window.history.pushState(state, '', `${window.location.pathname}#product-${productId}`);
+      currentModalHistoryState = state;
+    }
+
+    function refreshActiveProductModal() {
+      if (!productModal.classList.contains('is-open') || !currentProductId) return;
+      openProductModal(currentProductId);
     }
 
     function openProductModal(productId) {
       const product = getAllProducts().find((item) => item.id === productId);
       if (!product) return;
 
+      currentProductId = product.id;
+      syncModalHistory(product.id);
+
       const modalContent = productModal.querySelector('.product-modal');
+      const productImages = Array.isArray(product.images) && product.images.length ? product.images : [product.image];
+      const firstImage = productImages[0] || product.image || 'logo-placeholder.png';
+      const galleryMarkup = productImages.length > 1
+        ? `
+          <div class="product-gallery" data-product-id="${product.id}">
+            <div class="product-gallery-stage">
+              <img src="${firstImage}" alt="${escapeHtml(getProductLabel(product, 'name'))}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
+            </div>
+            <div class="product-gallery-nav" role="tablist" aria-label="Product image gallery">
+              ${productImages.map((image, index) => `<button type="button" class="product-gallery-dot ${index === 0 ? 'active' : ''}" data-index="${index}" aria-label="Show image ${index + 1}"></button>`).join('')}
+            </div>
+          </div>
+        `
+        : `<img src="${firstImage}" alt="${escapeHtml(getProductLabel(product, 'name'))}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />`;
+
       modalContent.innerHTML = `
-        <button type="button" class="modal-back-btn" aria-label="Back to products">← Back</button>
+        <button type="button" class="modal-back-btn" aria-label="Back to products">← ${getLocaleText('Back', 'వెనుకకు')}</button>
         <div class="product-modal-grid">
           <div class="product-modal-media">
-            <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
+            ${galleryMarkup}
           </div>
           <div class="product-modal-body">
             <div class="product-modal-head">
               <div>
-                <p class="product-pill">${product.category}</p>
-                <h3>${product.name}</h3>
+                <p class="product-pill">${escapeHtml(getProductLabel(product, 'category'))}</p>
+                <h3>${escapeHtml(getProductLabel(product, 'name'))}</h3>
               </div>
             </div>
             <div class="product-modal-meta">
               <p class="product-modal-price">₹${product.price}</p>
-              <p class="product-modal-stock">${getStockText(product)}</p>
+              <p class="product-modal-stock">${escapeHtml(getProductLabel(product, 'stock'))}</p>
             </div>
-            <p class="product-modal-description">${product.description}</p>
+            <p class="product-modal-description">${escapeHtml(getProductLabel(product, 'description'))}</p>
             <div class="product-qty-row">
-              <span class="qty-label">Quantity</span>
+              <span class="qty-label">${getLocaleText('Quantity', 'మొత్తం')}</span>
               <div class="qty-stepper">
                 <button type="button" data-action="decrease-qty" data-product-id="${product.id}">−</button>
                 <span class="qty-value" data-product-id="${product.id}">1</span>
@@ -1538,15 +1621,36 @@
               </div>
             </div>
             <div class="product-modal-actions">
-              <button type="button" class="btn btn-primary" data-action="modal-add-to-cart" data-product-id="${product.id}">Add to Cart</button>
-              <a href="https://wa.me/917993687372?text=${encodeURIComponent(`Hello House of Rakhi! I am interested in ${product.name}.`) }" target="_blank" rel="noopener" class="btn btn-whatsapp">Buy on WhatsApp</a>
+              <button type="button" class="btn btn-primary" data-action="modal-add-to-cart" data-product-id="${product.id}">${getLocaleText('Add to Cart', 'కార్టుకు జోడించండి')}</button>
+              <a href="https://wa.me/917993687372?text=${encodeURIComponent(`Hello House of Rakhi! I am interested in ${getProductLabel(product, 'name')}.`) }" target="_blank" rel="noopener" class="btn btn-whatsapp">${getLocaleText('Buy on WhatsApp', 'వాట్సాప్‌తో కొనండి')}</a>
             </div>
           </div>
         </div>
       `;
+
+      if (productImages.length > 1) {
+        const gallery = modalContent.querySelector('.product-gallery');
+        const stageImage = gallery?.querySelector('.product-gallery-stage img');
+        const dots = Array.from(gallery?.querySelectorAll('.product-gallery-dot') || []);
+        dots.forEach((dot) => {
+          dot.addEventListener('click', () => {
+            const index = Number(dot.getAttribute('data-index'));
+            if (stageImage) {
+              stageImage.src = productImages[index];
+              stageImage.alt = escapeHtml(getProductLabel(product, 'name'));
+            }
+            dots.forEach((item) => item.classList.toggle('active', item === dot));
+          });
+        });
+      }
+
       productModal.classList.add('is-open');
       productModal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('modal-open');
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
     }
 
     loadCart();
@@ -1653,22 +1757,27 @@
         return;
       }
 
-      categoryGrid.innerHTML = filteredProducts.map((product) => `
-        <article class="cat-card search-result-card" data-product-id="${product.id}" data-aos>
-          <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
-          <div class="cat-body">
-            <p class="product-pill">${product.category}</p>
-            <h3>${product.name}</h3>
-            <p class="product-price">₹${product.price}</p>
-            <div class="product-card-footer">
-              <button type="button" class="btn btn-primary" data-action="open-details" data-product-id="${product.id}">
-                <span class="lang-en">View Details</span>
-                <span class="lang-te-block">వివరాలు చూడండి</span>
-              </button>
+      categoryGrid.innerHTML = filteredProducts.map((product) => {
+        const isTe = getCurrentLanguage() === 'te';
+        const cardName = isTe ? (product.nameTe || product.name) : product.name;
+        const cardCategory = isTe ? (product.categoryTe || product.category) : product.category;
+        return `
+          <article class="cat-card search-result-card" data-product-id="${product.id}" data-aos>
+            <img src="${product.image}" alt="${escapeHtml(cardName)}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
+            <div class="cat-body">
+              <p class="product-pill">${escapeHtml(cardCategory)}</p>
+              <h3>${escapeHtml(cardName)}</h3>
+              <p class="product-price">₹${product.price}</p>
+              <div class="product-card-footer">
+                <button type="button" class="btn btn-primary" data-action="open-details" data-product-id="${product.id}">
+                  <span class="lang-en">View Details</span>
+                  <span class="lang-te-block">వివరాలు చూడండి</span>
+                </button>
+              </div>
             </div>
-          </div>
-        </article>
-      `).join('');
+          </article>
+        `;
+      }).join('');
       revealNewlyRenderedCards(categoryGrid);
     }
 
@@ -1683,6 +1792,14 @@
       renderCollection(searchInput?.value || '');
       syncFilterChips();
     }
+
+    function refreshDynamicContent() {
+      renderCollection(searchInput?.value || '');
+      renderCart();
+      refreshActiveProductModal();
+    }
+
+    window.refreshDynamicContent = refreshDynamicContent;
 
     if (categoryFilter) {
       categoryFilter.addEventListener('change', (event) => {
@@ -1799,6 +1916,9 @@
       closeLanguageMenu();
       localStorage.setItem('site-language', nextLang);
       updateRotatingPhrase();
+      if (typeof window.refreshDynamicContent === 'function') {
+        window.refreshDynamicContent();
+      }
     }
 
     function updateRotatingPhrase() {

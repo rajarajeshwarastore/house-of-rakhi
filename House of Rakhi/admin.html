@@ -96,7 +96,8 @@
   .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
   .toolbar input[type="search"] { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; min-width: 220px; }
 
-  table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  #productsTableWrap, #ordersTableWrap { overflow-x: auto; }
+  table { width: 100%; min-width: 760px; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
   th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--cream-warm); font-size: 0.9rem; vertical-align: top; }
   th { background: var(--cream-warm); color: var(--maroon-deep); }
   tr:last-child td { border-bottom: none; }
@@ -130,6 +131,34 @@
 
   .empty-note { padding: 20px; text-align: center; color: var(--ink-soft); }
   .loading-note { padding: 20px; text-align: center; color: var(--ink-soft); }
+
+  @media (max-width: 900px) {
+    header.admin-bar {
+      padding: 12px 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    main.admin-main { padding: 16px; }
+    .toolbar { margin-bottom: 10px; }
+    .toolbar input[type="search"] { min-width: 0; width: 100%; }
+    th, td { padding: 8px 10px; font-size: 0.84rem; }
+    .thumb { width: 36px; height: 36px; }
+  }
+
+  @media (max-width: 600px) {
+    header.admin-bar h1 { font-size: 1rem; }
+    header.admin-bar .who { font-size: 0.8rem; }
+    .login-card { padding: 24px; }
+    .toolbar { flex-direction: column; align-items: stretch; }
+    .toolbar .btn-gold, .toolbar .btn-small { width: 100%; }
+    .modal { padding: 18px; }
+    .modal-grid { grid-template-columns: 1fr; }
+    .modal-actions { flex-direction: column-reverse; }
+    .modal-actions button { width: 100%; }
+    th, td { padding: 7px 8px; font-size: 0.8rem; }
+    .row-actions { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -253,8 +282,8 @@
           <input type="number" id="pf_discount" min="0" max="100" step="1" value="0" />
         </div>
         <div class="field full">
-          <label>Product Photo (optional)</label>
-          <input type="file" id="pf_image" accept="image/*" />
+          <label>Product Photos (optional, 1–5)</label>
+          <input type="file" id="pf_image" accept="image/*" multiple />
           <p class="status-msg" id="pf_image_note"></p>
         </div>
         <div class="field full">

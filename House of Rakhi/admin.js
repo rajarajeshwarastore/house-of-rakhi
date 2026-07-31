@@ -332,10 +332,10 @@ productForm.addEventListener('submit', async (event) => {
       if (error) throw error;
     }
 
-    const imageFile = document.getElementById('pf_image').files[0];
-    if (imageFile) {
-      document.getElementById('pf_image_note').textContent = 'Uploading photo…';
-      await uploadProductImage(productId, imageFile);
+    const imageFiles = Array.from(document.getElementById('pf_image').files || []);
+    if (imageFiles.length) {
+      document.getElementById('pf_image_note').textContent = 'Uploading photos…';
+      await uploadProductImages(productId, imageFiles);
     }
 
     productFormStatus.textContent = 'Saved.';
@@ -348,8 +348,11 @@ productForm.addEventListener('submit', async (event) => {
   }
 });
 
-async function uploadProductImage(productId, file) {
-  // Replace any existing photos for this product with the new one.
+async function uploadProductImages(productId, files) {
+  if (files.length > 5) {
+    throw new Error('Please upload up to 5 images per product.');
+  }
+
   const { data: existingImages } = await supabaseClient
     .from('product_images')
     .select('id, storage_path')
@@ -360,22 +363,26 @@ async function uploadProductImage(productId, file) {
     await supabaseClient.from('product_images').delete().eq('product_id', productId);
   }
 
-  const ext = file.name.split('.').pop();
-  const path = `${productId}/${Date.now()}.${ext}`;
-
-  const { error: uploadError } = await supabaseClient.storage.from('product-images').upload(path, file, { upsert: true });
-  if (uploadError) {
-    throw new Error(
-      `Photo upload failed (${uploadError.message}). If this is the first upload, ` +
-      `create a public storage bucket named "product-images" in the Supabase dashboard first.`
-    );
-  }
-
-  const { error: insertError } = await supabaseClient.from('product_images').insert({
-    product_id: productId,
-    storage_path: path,
-    sort_order: 0,
+  const uploadPromises = files.map((file, index) => {
+    const ext = file.name.split('.').pop() || 'jpg';
+    const path = `${productId}/${Date.now()}-${index}.${ext}`;
+    return supabaseClient.storage.from('product-images').upload(path, file, { upsert: true }).then(({ error }) => {
+      if (error) throw new Error(
+        `Photo upload failed (${error.message}). If this is the first upload, ` +
+        `create a public storage bucket named "product-images" in the Supabase dashboard first.`
+      );
+      return { storage_path: path, sort_order: index };
+    });
   });
+
+  const uploadedFiles = await Promise.all(uploadPromises);
+  const { error: insertError } = await supabaseClient.from('product_images').insert(
+    uploadedFiles.map((item) => ({
+      product_id: productId,
+      storage_path: item.storage_path,
+      sort_order: item.sort_order,
+    }))
+  );
   if (insertError) throw insertError;
 }
 
