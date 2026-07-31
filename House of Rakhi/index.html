@@ -1530,6 +1530,25 @@
       return field === 'name' ? (product.name || '') : field === 'description' ? (product.description || '') : field === 'category' ? (product.category || '') : getLocalizedStockText(product);
     }
 
+    function getProductDiscountedPrice(product) {
+      const discount = Number(product.discount || product.discount_percent || 0);
+      if (discount <= 0) return null;
+      return Number(product.price) * (100 - discount) / 100;
+    }
+
+    function getProductPriceHtml(product) {
+      const discount = Number(product.discount || product.discount_percent || 0);
+      if (discount > 0) {
+        const discountedPrice = getProductDiscountedPrice(product);
+        return `
+          <span class="product-price-discounted">${formatCurrency(discountedPrice)}</span>
+          <span class="product-price-original">${formatCurrency(product.price)}</span>
+          <span class="discount-badge">-${discount}% OFF</span>
+        `;
+      }
+      return `<span>${formatCurrency(product.price)}</span>`;
+    }
+
     function getLocalizedStockText(product) {
       const stockValue = String(product.stockStatus || product.availability || 'In Stock').toLowerCase();
       if (getCurrentLanguage() === 'te') {
@@ -1585,7 +1604,9 @@
         ? `
           <div class="product-gallery" data-product-id="${product.id}">
             <div class="product-gallery-stage">
+              <button type="button" class="product-gallery-arrow product-gallery-arrow-prev" aria-label="Previous image">◀</button>
               <img src="${firstImage}" alt="${escapeHtml(getProductLabel(product, 'name'))}" loading="lazy" onerror="this.onerror=null; this.src='logo-placeholder.png'" />
+              <button type="button" class="product-gallery-arrow product-gallery-arrow-next" aria-label="Next image">▶</button>
             </div>
             <div class="product-gallery-nav" role="tablist" aria-label="Product image gallery">
               ${productImages.map((image, index) => `<button type="button" class="product-gallery-dot ${index === 0 ? 'active' : ''}" data-index="${index}" aria-label="Show image ${index + 1}"></button>`).join('')}
@@ -1608,7 +1629,7 @@
               </div>
             </div>
             <div class="product-modal-meta">
-              <p class="product-modal-price">₹${product.price}</p>
+              <p class="product-modal-price">${getProductPriceHtml(product)}</p>
               <p class="product-modal-stock">${escapeHtml(getProductLabel(product, 'stock'))}</p>
             </div>
             <p class="product-modal-description">${escapeHtml(getProductLabel(product, 'description'))}</p>
@@ -1632,16 +1653,47 @@
         const gallery = modalContent.querySelector('.product-gallery');
         const stageImage = gallery?.querySelector('.product-gallery-stage img');
         const dots = Array.from(gallery?.querySelectorAll('.product-gallery-dot') || []);
+        const prevArrow = gallery?.querySelector('.product-gallery-arrow-prev');
+        const nextArrow = gallery?.querySelector('.product-gallery-arrow-next');
+        let currentGalleryIndex = 0;
+
+        const updateGalleryImage = (index) => {
+          currentGalleryIndex = ((index % productImages.length) + productImages.length) % productImages.length;
+          if (stageImage) {
+            stageImage.src = productImages[currentGalleryIndex];
+            stageImage.alt = escapeHtml(getProductLabel(product, 'name'));
+          }
+          dots.forEach((item, idx) => item.classList.toggle('active', idx === currentGalleryIndex));
+        };
+
         dots.forEach((dot) => {
           dot.addEventListener('click', () => {
             const index = Number(dot.getAttribute('data-index'));
-            if (stageImage) {
-              stageImage.src = productImages[index];
-              stageImage.alt = escapeHtml(getProductLabel(product, 'name'));
-            }
-            dots.forEach((item) => item.classList.toggle('active', item === dot));
+            updateGalleryImage(index);
           });
         });
+
+        prevArrow?.addEventListener('click', () => updateGalleryImage(currentGalleryIndex - 1));
+        nextArrow?.addEventListener('click', () => updateGalleryImage(currentGalleryIndex + 1));
+
+        const galleryStage = gallery?.querySelector('.product-gallery-stage');
+        let swipeStartX = null;
+
+        if (galleryStage) {
+          galleryStage.addEventListener('touchstart', (event) => {
+            swipeStartX = event.changedTouches?.[0]?.clientX ?? null;
+          }, { passive: true });
+
+          galleryStage.addEventListener('touchend', (event) => {
+            const endX = event.changedTouches?.[0]?.clientX ?? null;
+            if (swipeStartX === null || endX === null) return;
+            const deltaX = endX - swipeStartX;
+            if (Math.abs(deltaX) > 40) {
+              updateGalleryImage(deltaX < 0 ? currentGalleryIndex + 1 : currentGalleryIndex - 1);
+            }
+            swipeStartX = null;
+          }, { passive: true });
+        }
       }
 
       productModal.classList.add('is-open');
@@ -1767,7 +1819,7 @@
             <div class="cat-body">
               <p class="product-pill">${escapeHtml(cardCategory)}</p>
               <h3>${escapeHtml(cardName)}</h3>
-              <p class="product-price">₹${product.price}</p>
+              <p class="product-price">${getProductPriceHtml(product)}</p>
               <div class="product-card-footer">
                 <button type="button" class="btn btn-primary" data-action="open-details" data-product-id="${product.id}">
                   <span class="lang-en">View Details</span>
@@ -1966,33 +2018,64 @@
     setLanguage(savedLang);
   </script>
   <script>
-    const countdownTarget = new Date('2026-08-31T00:00:00');
+    const rakshaDayStart = new Date('2026-07-31T00:00:00');
+    const rakshaDayEnd = new Date('2026-08-01T00:00:00');
+    const countdownSection = document.getElementById('countdown');
+    let countdownTimerId = null;
+
+    function renderRakshaGreeting() {
+      if (!countdownSection) return;
+      countdownSection.innerHTML = `
+        <div class="countdown-card">
+          <h2 class="countdown-title lang-en">🎉 Happy Raksha Bandhan! 🎉</h2>
+          <p class="countdown-subtitle lang-en">Celebrating the timeless bond of love, trust, and protection.<br />May this Raksha Bandhan fill every home with happiness, prosperity, and countless beautiful memories.<br />Wishing you and your family a joyful and blessed Raksha Bandhan.</p>
+          <h2 class="countdown-title lang-te-block">🎉 శుభ రక్షా బంధన్! 🎉</h2>
+          <p class="countdown-subtitle lang-te-block">ప్రేమ, నమ్మకం మరియు రక్షణ యొక్క శాశ్వత బంధాన్ని జయప్రదంగా జరుపుకుంటున్నాము.<br />ఈ రక్షా బంధన్ ప్రతి ఇంటినీ హర్షంతో, సంపదతో, ఎన్నో అందమైన స్మృతులతో నింపాలని కోరుకుంటున్నాము.<br />మీకు మరియు మీ కుటుంబానికి సంతోషకరమైన మరియు ఆశీర్వదించిన రక్షా బంధన్ కావాలని కోరుకుంటున్నాము.</p>
+        </div>
+      `;
+    }
+
+    function removeCountdownSection() {
+      if (!countdownSection) return;
+      countdownSection.remove();
+    }
 
     function updateCountdown() {
       const now = new Date();
-      const diff = countdownTarget - now;
 
-      if (diff <= 0) {
-        document.getElementById('days').textContent = '00';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
+      if (now >= rakshaDayEnd) {
+        if (countdownTimerId) {
+          clearInterval(countdownTimerId);
+          countdownTimerId = null;
+        }
+        removeCountdownSection();
         return;
       }
 
+      if (now >= rakshaDayStart) {
+        renderRakshaGreeting();
+        return;
+      }
+
+      const diff = rakshaDayStart - now;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('days').textContent = String(days).padStart(2, '0');
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      const secondsEl = document.getElementById('seconds');
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
     }
 
     updateCountdown();
-    setInterval(updateCountdown, 1000);
+    countdownTimerId = setInterval(updateCountdown, 1000);
   </script>
   
   <script src="script.js" defer></script>

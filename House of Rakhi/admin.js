@@ -198,16 +198,42 @@ function renderProductsTable(products) {
     `;
   }).join('');
 
+  const cards = products.map((p) => {
+    const statusClass = statusPillClass(p.status);
+    return `
+      <article class="product-mobile-card" data-id="${escapeHtml(p.id)}">
+        <div class="product-mobile-thumb">${p._thumb ? `<img src="${escapeHtml(p._thumb)}" alt="${escapeHtml(p.name)}" />` : '<span></span>'}</div>
+        <div class="product-mobile-content">
+          <div class="product-mobile-heading">
+            <strong>${escapeHtml(p.name)}</strong>
+            <span>${escapeHtml(p.category)}</span>
+          </div>
+          <div class="product-mobile-meta">
+            <span class="pill ${statusClass}">${escapeHtml(p.status)}</span>
+            <span class="product-mobile-price">₹${Number(p.price).toLocaleString('en-IN')}</span>
+          </div>
+          <div class="product-mobile-footer">
+            <button class="btn-primary btn-small" data-action="edit" data-id="${escapeHtml(p.id)}">Edit</button>
+            <button class="btn-danger btn-small" data-action="delete" data-id="${escapeHtml(p.id)}">Delete</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
   productsTableWrap.innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Photo</th><th>ID</th><th>Name</th><th>Category</th><th>Price</th>
-          <th>Stock</th><th>Status</th><th>Discount</th><th>Flags</th><th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
+    <div class="product-card-grid">${cards}</div>
+    <div class="products-table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Photo</th><th>ID</th><th>Name</th><th>Category</th><th>Price</th>
+            <th>Stock</th><th>Status</th><th>Discount</th><th>Flags</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
   `;
 }
 
